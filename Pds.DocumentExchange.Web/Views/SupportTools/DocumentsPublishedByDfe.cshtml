@@ -1,0 +1,30 @@
+﻿@using Pds.DocumentExchange.Web.Models.SupportTools;
+@model PublishedBatchesViewModel
+
+@if (!Model.AnyListItems)
+{
+    <partial name="@Model.NoListItemsPartialName" />
+}
+else
+{
+    <div>
+        <fieldset>
+            <legend id="document-list" class="visuallyhidden">
+                @Model.TableCaption
+            </legend>
+
+            <div class="form-group">
+                <table data-checkboxes>
+                    <caption class="visuallyhidden">@Model.TableCaption</caption>
+                    <partial name="@Model.TableHeaderPartialName" />
+                    <tbody id="list-items-container">
+                        <partial name="~/Areas/Lists/Views/_Items.cshtml" />
+                    </tbody>
+                </table>
+                <partial name="~/Areas/Lists/Views/_Pagination.cshtml" />
+            </div>
+
+            <partial name="/Views/Shared/_BackToTopLink.cshtml" />
+        </fieldset>
+    </div>
+}

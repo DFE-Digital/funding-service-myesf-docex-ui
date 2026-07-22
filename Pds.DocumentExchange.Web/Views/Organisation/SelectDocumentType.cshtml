@@ -1,0 +1,48 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Organisation
+@model SelectDocumentType
+
+@{
+    const string styleThatHides = "hidden";
+    const string errorMessage = "Select the type of document you want to send";
+    var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+    var formErrorVisibilityClass = Model.Error ? "form-group-error" : string.Empty;
+    var fieldsetErrorVisibilityClass = Model.Error ? "after-error-summary" : string.Empty;
+}
+
+    <form method="post" class="form" action="@Url.ActionLink(nameof(OrganisationController.SelectDocument))">
+        <div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+            <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+            <ul class="error-summary-list">
+                <li><a href="#documentType">@errorMessage</a></li>
+            </ul>
+        </div>
+        <fieldset class="@fieldsetErrorVisibilityClass">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl" id="documentType">
+                <h1 class="heading-xlarge">@Model.ContentTitle</h1>
+            </legend>
+            <p>You can only send one document at a time.</p>
+            <div class="form-group @formErrorVisibilityClass">
+                <span class="error-message @errorVisibilityClass">@errorMessage</span>
+                @{
+                    var counter = 1;
+                    foreach (var product in Model.AllowedProducts)
+                    {
+                        <div class="multiple-choice">
+                            <input id="radio-@counter" type="radio"
+                                   class="single-choice-action-form-option"
+                                   name="@nameof(SelectDocument.ProductIdentifier)"
+                                   value="@product.Identifier">
+                            <label for="radio-@counter">@product.Name</label>
+                        </div>
+                        counter++;
+                    }
+                    @Html.HiddenFor(model => model.UploadingForUkprn)
+                }
+            </div>
+        </fieldset>
+        <div class="form-group">
+            <button class="button">Continue</button>
+        </div>
+    </form>
+<script src="~/Scripts/Organisation/SingleChoiceActionForm.js" defer></script>

@@ -1,0 +1,19 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+
+<tr class="searchable-table-row" id="file-{{positionInRenderedList}}">
+    <td class="sortable-td" style="vertical-align: top;">
+        <a href="@(Url.ActionLink(nameof(OrganisationController.DownloadExternalExchangeDocument)) + "?documentReferenceString={{fileName}}|{{batchIdentifier}}|{{parentBatchIdentifier}}")"
+           title="Download {{fileName}} {{displayFileExtensionNote}}">
+            {{{displayFileName}}}
+        </a>
+        {{#isNew}}
+        <br />
+        <partial name="/Views/Shared/_StatusNewTag.cshtml" />
+        {{/isNew}}
+        <br />
+        {{displayReceivedDateTime}}
+    </td>
+    <td class="sortable-td" style="vertical-align: top;">
+        {{productName}}
+    </td>
+</tr>

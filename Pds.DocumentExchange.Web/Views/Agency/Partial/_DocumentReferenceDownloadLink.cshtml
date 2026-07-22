@@ -1,0 +1,8 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Helpers
+@model Pds.DocumentExchange.Services.Models.DocumentReference
+
+<a href="@Url.ActionLink(nameof(AgencyController.DownloadExchangeDocument), values: new { documentReferenceString = $"{Model.FileName}|{Model.BatchIdentifier}|{Model.ParentBatchIdentifier}" })"
+   title="Download @Model.FileName @ContentHelper.GetFileExtensionNote(Model.FileName)">
+    @Html.Raw(ContentHelper.InsertBreaksIntoFileName(Model.FileName))
+</a>

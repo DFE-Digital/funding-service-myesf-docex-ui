@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.SupportTools;
+@using Pds.DocumentExchange.Web.Enums;
+@using System.ComponentModel.DataAnnotations;
+@using static Pds.DocumentExchange.Web.Helpers.ControllerHelper
+@model ManagementInformationReportViewModel;
+
+<p class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    What dates do you want the report to cover?
+    <span class="govuk-hint custom-hint">Must be between 1 and 31 days</span>
+</p>
+
+<form id="mi-report-form" method="post">
+    <div id="mi-report-fromdate-form-group" class="form-group govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                From
+            </legend>
+
+            <p id="mi-report-fromdate-error" class="govuk-error-message custom-form-error-message">
+                <span class="govuk-visually-hidden">Error:</span>
+            </p>
+
+            <div class="govuk-date-input" id="mi-report-fromdate">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label custom-date-input-label" for="mi-report-fromday-input">
+                            Day
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input custom-date-input" type="text" inputmode="numeric" id="mi-report-fromday-input" name="FromDay" value="@Model.FromDay" />
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label custom-date-input-label" for="mi-report-frommonth-input">
+                            Month
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input custom-date-input" type="text" inputmode="numeric" id="mi-report-frommonth-input" name="FromMonth" value="@Model.FromMonth" />
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label custom-date-input-label" for="mi-report-fromyear-input">
+                            Year
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4 govuk-input custom-date-input" type="text" inputmode="numeric" id="mi-report-fromyear-input" name="FromYear" value="@Model.FromYear" />
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+
+    <div id="mi-report-todate-form-group" class="form-group govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                To
+            </legend>
+
+            <p id="mi-report-todate-error" class="govuk-error-message custom-form-error-message">
+                <span class="govuk-visually-hidden">Error:</span>
+            </p>
+
+            <div class="govuk-date-input" id="mi-report-todate">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label custom-date-input-label" for="mi-report-today-input">
+                            Day
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input custom-date-input" type="text" inputmode="numeric" id="mi-report-today-input" name="ToDay" value="@Model.ToDay" />
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label custom-date-input-label" for="mi-report-tomonth-input">
+                            Month
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input custom-date-input" type="text" inputmode="numeric" id="mi-report-tomonth-input" name="ToMonth" value="@Model.ToMonth" />
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label custom-date-input-label" for="mi-report-toyear-input">
+                            Year
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4 govuk-input custom-date-input" type="text" inputmode="numeric" id="mi-report-toyear-input" name="ToYear" value="@Model.ToYear" />
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+    <input type="submit" value="Download" id="mi-report-submit" class="button" />
+</form>
+
+<script src="~/scripts/reports.js"></script>

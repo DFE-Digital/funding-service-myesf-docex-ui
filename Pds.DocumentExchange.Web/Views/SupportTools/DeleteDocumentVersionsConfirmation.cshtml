@@ -1,0 +1,17 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.SupportTools
+@model DeleteDocumentVersionsConfirmation
+
+<form method="get" class="form" action="@Url.ActionLink(nameof(SupportToolsController.DeleteDocuments))">
+    <div class="form-group">
+        <div class="govuk-box-highlight">
+            <h1 class="bold-xlarge">@Model.ContentTitle</h1>
+        </div>
+    </div>
+
+    <partial name="/Views/SupportTools/Partial/_DeleteDocumentVersionsConfirmation.cshtml" />
+
+    <div class="form-group">
+        <button class="button" type="submit">Delete documents</button>
+    </div>
+</form>

@@ -1,0 +1,106 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.SupportTools
+@using Pds.DocumentExchange.Web.Models.Agency
+@using Pds.DocumentExchange.Web.Models.Shared
+@model DeleteDocumentsVersionSelect
+
+@{
+    const string styleThatHides = "hidden";
+    var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+}
+
+
+<form method="post" class="form">
+
+    <div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+        <ul class="error-summary-list">
+            <li>
+                Select a document version to delete
+            </li>
+        </ul>
+    </div>
+
+    <partial name="/Views/Shared/_ContentTitle.cshtml" />
+
+    <div class="form-group">
+        <table>
+            <tr>
+                <partial name="/Views/Shared/TableData/_TableHeaderCell.cshtml" model='new TableHeaderCell { Value = "Document type", CssClasses = "table-header-width-one-half" }' />
+                <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ListItems.OfType<AgencyExchangeDocument>().FirstOrDefault()?.ProductName" />
+            </tr>
+            <tr>
+                <partial name="/Views/Shared/TableData/_TableHeaderCell.cshtml" model='new TableHeaderCell { Value = "Provider name", CssClasses = "table-header-width-one-half" }' />
+                <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ListItems.OfType<AgencyExchangeDocument>().FirstOrDefault()?.ProviderName" />
+
+            </tr>
+            <tr>
+                <partial name="/Views/Shared/TableData/_TableHeaderCell.cshtml" model='new TableHeaderCell { Value = "UKPRN", CssClasses = "table-header-width-one-half" }' />
+                <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ListItems.OfType<AgencyExchangeDocument>().FirstOrDefault()?.ProviderUkprn" />
+
+            </tr>
+        </table>
+    </div>
+    <div class="form-group">
+        <div>
+            @foreach (var document in Model.ListItems.OfType<AgencyExchangeDocument>())
+            {
+                <input type="hidden" name="@nameof(DeleteDocumentsConfirmation.DocumentReferences)" value="@document.Id" />
+
+                foreach (var documentPreviousVersion in document.PreviousVersions.OrderBy(pv => pv.VersionNumber))
+                {
+                    <input type="hidden" name="@nameof(DeleteDocumentsConfirmation.DocumentReferences)" value="@document.Id::@documentPreviousVersion.Id" />
+
+                    <div class="multiple-choice">
+                        @Html.RadioButtonFor(model => model.SelectedVersion, documentPreviousVersion.Id, new
+                   {
+                       @id = documentPreviousVersion.Id,
+                       @name = "radio-inline-@document.Id",
+                       @class = "single-choice-action-form-option"
+                   })
+                        <label for=@documentPreviousVersion.Id>
+                            @Html.Raw(documentPreviousVersion.VersionNumber)<br />
+                            @Html.Raw(documentPreviousVersion.Version)
+                        </label>
+                    </div>
+                }
+                <div class="multiple-choice">
+                    @Html.RadioButtonFor(model => model.SelectedVersion, document.Id, new
+               {
+                   @id = document.Id,
+                   @name = "radio-inline-@document.Id",
+                   @class = "single-choice-action-form-option"
+               })
+                    <label for=@document.Id>
+                        @Html.Raw(@document.VersionNumber)<br />
+                        @Html.Raw(@document.Version)
+                    </label>
+                </div>
+                <div class="multiple-choice">
+                    @Html.RadioButtonFor(model => model.SelectedVersion, "AllVersions" + @document.Id, new
+               {
+                   @id = "AllVersions",
+                   @name = "radio-inline-@document.Id",
+                   @class = "single-choice-action-form-option"
+               })
+                    <label for="AllVersions">
+                        All versions
+                    </label>
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <div style=" display: inline-block">
+        <p>The version of the document will be permanently deleted.</p>
+
+        <button type="submit" formaction="@Url.ActionLink(nameof(SupportToolsController.DeleteSelectedDocumentVersion))"
+                class="delete-button" role="button" title="Delete" data-error-source="delete">
+            Delete
+        </button>
+
+        @Html.ActionLink("Cancel", nameof(SupportToolsController.SupportTools))
+    </div>
+</form>
+<script src="~/Scripts/Organisation/SingleChoiceActionForm.js" defer></script>

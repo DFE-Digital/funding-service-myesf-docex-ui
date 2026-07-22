@@ -1,0 +1,65 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Helpers
+@using Pds.DocumentExchange.Web.Models.Agency
+@model RemoveDocumentsAreYouSure
+
+@{
+    const string styleThatHides = "hidden";
+    const string errorMessage = "Select yes if you want to remove these documents";
+    var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+    var formErrorVisibilityClass = Model.Error ? "form-group-error" : string.Empty;
+    var fieldsetErrorVisibilityClass = Model.Error ? "after-error-summary" : string.Empty;
+}
+
+<form method="post" class="form" action="@Url.ActionLink(nameof(AgencyController.RemoveDocumentsConfirmation))">
+    <div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+        <ul class="error-summary-list">
+            <li><a href="#remove-confirm">@errorMessage</a></li>
+        </ul>
+    </div>
+    <fieldset class="inline @fieldsetErrorVisibilityClass"> 
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl" id="remove-confirm">
+            @* _ContentTitle is a partial view in Pds.Core.Web *@
+            <partial name="/Views/Shared/_ContentTitle.cshtml" />
+        </legend>
+        @if (Model.FileNames.Count() == 1)
+        {
+            var linkModel = new FileShareDocumentReference { FileName = Model.FileNames.Single(), Team = Model.Team };
+            <p>The document you're about to remove is @Html.Raw(ContentHelper.InsertBreaksIntoFileName(linkModel.FileName)).</p>
+        }
+        else
+        {
+            <p>The documents are:</p>
+            <ul class="list list-bullet">
+                @foreach (var fileName in Model.FileNames)
+                {
+                    var linkModel = new FileShareDocumentReference { FileName = fileName, Team = Model.Team };
+                    <li>@Html.Raw(ContentHelper.InsertBreaksIntoFileName(linkModel.FileName))</li>
+                }
+            </ul>
+        }
+        <div class="form-group @formErrorVisibilityClass">
+            <span class="error-message @errorVisibilityClass">@errorMessage</span>
+            @foreach (var documentReference in Model.FileShareDocumentReferences)
+            {
+                <input type="hidden" name="@nameof(RemoveDocumentsConfirmation.FileShareDocumentReferences)" value="@documentReference" />
+            }
+            <input type="hidden" name="@nameof(RemoveDocuments.EntryAction)" value="@Model.EntryAction" />
+            <div class="multiple-choice">
+                <input id="radio-inline-1" type="radio" class="single-choice-action-form-option"
+                       name="@nameof(RemoveDocumentsConfirmation.RemovalConfirmed)" value="true">
+                <label for="radio-inline-1">Yes</label>
+            </div>
+            <div class="multiple-choice">
+                <input id="radio-inline-2" type="radio" class="single-choice-action-form-option"
+                       name="@nameof(RemoveDocumentsConfirmation.RemovalConfirmed)" value="false">
+                <label for="radio-inline-2">No</label>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-group">
+        <button class="button" type="submit">Continue</button>
+    </div>
+</form>
+<script src="~/Scripts/Organisation/SingleChoiceActionForm.js" defer></script>

@@ -1,0 +1,12 @@
+﻿@using Pds.DocumentExchange.Web.DTOs
+@model Pds.DocumentExchange.Web.Models.Agency.FileShareDocument
+@{ 
+    var counter = ViewData["counter"];
+}
+
+<td class="document-checkbox-td sortable-td">
+    <div class="document-checkbox-div multiple-choice">
+        <input id="checkbox-file-@counter" name="@nameof(IFileShareDocumentReferenceList.FileShareDocumentReferences)" type="checkbox" value="@Model.Id" class="multiple-choice-action-form-option">
+        <label for="checkbox-file-@counter"><span class="visuallyhidden">Select @Model.DocumentReference.FileName</span></label>
+    </div>
+</td>

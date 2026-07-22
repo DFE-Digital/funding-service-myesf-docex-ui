@@ -1,0 +1,46 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Agency
+@model DocumentsToPublish
+
+<div>
+    <fieldset>
+        <legend id="document-list" class="visuallyhidden">
+            @Model.TableCaption
+        </legend>
+
+        <partial name="~/Areas/Lists/Views/_FilterResultsAlert.cshtml" />
+
+        <div class="form-group">
+            <table data-checkboxes>
+                <caption class="visuallyhidden">@Model.TableCaption</caption>
+                <thead>
+                    <tr class="first">
+                        <partial name="/Views/Shared/TableData/_TextHeaderCell.cshtml"
+                                 model='"Document name"' />
+                        <partial name="/Views/Shared/TableData/_TextHeaderCell.cshtml"
+                                 model='"Document type"' />
+                    </tr>
+                </thead>
+                <tbody id="list-items-container">
+                    <partial name="~/Areas/Lists/Views/_Items.cshtml" />
+                </tbody>
+            </table>
+            <partial name="~/Areas/Lists/Views/_Pagination.cshtml" />
+        </div>
+
+        <p>
+            You can publish <strong class="bold" id="total-documents-for-selected-product">@Model.Pagination.TotalItems</strong>
+            <span id="selected-product-name">@(Model.Pagination.TotalItems > 1 ? Model.SelectedProduct?.PluralName : Model.SelectedProduct?.Name)</span>.
+        </p>
+
+        <div class="form-group">
+            <button type="submit" formaction="@Url.ActionLink(nameof(AgencyController.PublishDocumentsAreYouSure))"
+                    class="button" role="button" title="Publish all">
+                Publish all
+            </button>
+        </div>
+
+        <partial name="/Views/Shared/_BackToTopLink.cshtml" />
+
+    </fieldset>
+</div>

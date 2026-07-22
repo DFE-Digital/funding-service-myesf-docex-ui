@@ -1,0 +1,65 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Organisation
+@model ReceivedDocuments
+
+@{
+    const string styleThatHides = "hidden";
+    var errorVisibilityClass = Model.Error ? String.Empty : styleThatHides;
+    var downloadMsgVisible = Model.ErrorAction != null && Model.ErrorAction.Equals(nameof(OrganisationController.ReceivedDocumentsDownload)) ? String.Empty : styleThatHides;
+}
+
+@if (Model.ShowParentView)
+{
+    <div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+        <ul class="error-summary-list">
+            <li>
+                <a href="#document-list">
+                    <span class="download @downloadMsgVisible">Select the documents that you want to download</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+}
+
+@if (Model.AnyDocumentsAvailable)
+{
+    <form method="post" class="form" id="refreshable-data">
+        <partial name="~/Areas/Lists/Views/_Options.cshtml" />
+        <partial name="~/Areas/Lists/Views/_FilterResultsUpdatedAlert.cshtml" />
+
+        <div class="form-group">
+            @* _ContentTitle partial inherited from Pds.Core.Web *@
+            <partial name="/Views/Shared/_ContentTitle.cshtml" />
+
+            You may need a different format if you're using assistive technology. <span class="link-text" id="btn-received-documents-accessibility">Request an accessible format</span>
+            <br />
+
+            <div style="display:none; padding-top:5px;" id="received-documents-accessibility-content">
+                If you use assistive technology (such as a screen reader) and need a version of this document in a more accessible format, please contact the <a href="https://customerhelpportal.education.gov.uk/">Customer Help Portal</a>.
+                Please tell us what format you need. It will help us if you say what assistive technology you use.
+            </div>
+
+        </div>
+
+        @if (Model.ShowParentView)
+        {
+            <partial name="~/Areas/Lists/Views/_NumberOfSelectedItems.cshtml" />
+        }
+
+        <partial name="~/Areas/Lists/Views/_Filters.cshtml" />
+
+        <div class="column-two-thirds document-list">
+            <partial name="~/Areas/Lists/Views/_List.cshtml" />
+        </div>
+    </form>
+
+    <script src="~/Scripts/Organisation/MultipleChoiceActionForm.js" defer></script>
+    <script src="~/Scripts/Customisation.js" defer></script>
+    <script src="~/_content/Pds.Core.Web.Components/js/lists.mustache.min.js" defer></script>
+}
+else
+{
+    <partial name="/Views/Shared/_ContentTitle.cshtml" />
+    <partial name="@Model.NoDocumentsPartialName" />
+}

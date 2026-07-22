@@ -1,0 +1,63 @@
+﻿@using Pds.DocumentExchange.Web.Controllers;
+@using Pds.DocumentExchange.Web.Models.SupportTools;
+@using Pds.DocumentExchange.Services.Enums;
+@model DeleteDocumentsViewModel
+
+@{
+    var hasError = Model.ErrorMessages.Any();
+    var errorVisibilityClass = hasError ? string.Empty : "hidden";
+    var formErrorVisibilityClass = hasError ? "form-group-error" : string.Empty;
+
+    var periodFilterVisibilityClass = Model.ExchangeDocumentDirection == ExchangeDocumentDirection.PublishedByAgency ? string.Empty : "hidden";
+}
+
+<div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+    <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+    <ul class="error-summary-list">
+        @foreach (string currentMessage in Model.ErrorMessages)
+        {
+            <li><a>@currentMessage</a></li>
+        }
+    </ul>
+</div>
+
+<form method="post" action="@Url.ActionLink(nameof(SupportToolsController.SelectDocumentsToDelete))">
+
+    @{
+        string publishedByAgencyId = "radio-published-by-agency";
+        string uploadedByProviderId = "radio-uploaded-by-provider";
+        string formControlSingleLine = "form-control single-line";
+    }
+
+    <div class="form-group">
+        <div class="multiple-choice">
+            @Html.RadioButtonFor(model => model.ExchangeDocumentDirection, ExchangeDocumentDirection.PublishedByAgency, new { @id = publishedByAgencyId, @class = "single-choice-action-form-option", @checked = "checked" })
+            @Html.LabelFor(model => model.ExchangeDocumentDirection, "Published by DfE", new { @for = publishedByAgencyId })
+        </div>
+        <div class="multiple-choice">
+            @Html.RadioButtonFor(model => model.ExchangeDocumentDirection, ExchangeDocumentDirection.SentByOrganisation, new { @id = uploadedByProviderId, @class = "single-choice-action-form-option" })
+            @Html.LabelFor(model => model.ExchangeDocumentDirection, "Uploaded by provider", new { @for = uploadedByProviderId })
+        </div>
+    </div>
+
+    <div class="form-group-text-input">
+        @Html.LabelFor(model => model.Ukprn, "UKPRN")
+        @Html.TextBoxFor(model => model.Ukprn, new { @class = formControlSingleLine, @maxlength = "8" })
+    </div>
+
+    <div class="form-group-text-input">
+        @Html.LabelFor(model => model.DocumentType, "Document type")
+        @Html.DropDownListFor(model => model.DocumentType, Model.DocumentTypes, new { @class = formControlSingleLine })
+    </div>
+
+    <div class="form-group-text-input @periodFilterVisibilityClass" id="period-container">
+        @Html.LabelFor(model => model.DocumentType, "Period")
+        @Html.TextBoxFor(model => model.Period, new { @class = formControlSingleLine, @maxlength = "6", @id = "text-box-period" })
+    </div>
+
+    <div class="form-group">
+        <button id="button-search" name="button-search" class="button" type="submit">Search</button>
+    </div>
+
+    <script src="~/Scripts/Customisation.js" defer></script>
+</form>

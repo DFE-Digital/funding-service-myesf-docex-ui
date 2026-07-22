@@ -1,0 +1,28 @@
+﻿@using Pds.DocumentExchange.Web.Models.Agency
+@model DocumentsToPublish
+
+@if (Model.AnyDocumentsAvailable)
+{
+    <form method="post" class="form" id="refreshable-data">
+        <partial name="~/Areas/Lists/Views/_Options.cshtml" />
+        <partial name="~/Areas/Lists/Views/_FilterResultsUpdatedAlert.cshtml" />
+
+        @* _ContentTitle partial inherited from Pds.Core.Web *@
+        <partial name="/Views/Shared/_ContentTitle.cshtml" />
+
+        <p>Select a document type to publish.</p>
+
+        <partial name="~/Areas/Lists/Views/_Filters.cshtml" />
+
+        <div class="column-two-thirds document-list">
+            <partial name="~/Areas/Lists/Views/_List.cshtml" />
+        </div>
+    </form>
+
+    <script src="~/_content/Pds.Core.Web.Components/js/lists.mustache.min.js" defer></script>
+}
+else
+{
+    <partial name="/Views/Shared/_ContentTitle.cshtml" />
+    <partial name="@Model.NoDocumentsPartialName" />
+}

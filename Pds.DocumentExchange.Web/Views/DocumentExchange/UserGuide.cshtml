@@ -1,0 +1,93 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using static Pds.DocumentExchange.Web.Helpers.ControllerHelper
+@model Pds.DocumentExchange.Web.Models.DocumentExchange.UserGuide
+
+@{
+    var serviceStartUrl = Url.Action(nameof(DocumentExchangeController.Landing));
+}
+
+<p><a href="@serviceStartUrl">Document exchange</a> is run by the Department for Education (DfE).</p>
+<p>This user guide tells you how an external user can:</p>
+<ul class="list list-bullet">
+    <li>sign in and manage your account</li>
+    <li>publish new documents</li>
+</ul>
+<h2 class="heading-medium">Table of contents</h2>
+<ul class="list list-number">
+    <li>
+        <a class="govuk-link" href="#signin">Signing in</a>
+    </li>
+    <li>
+        <a class="govuk-link" href="#signout">Signing out</a>
+    </li>
+    <li>
+        <a class="govuk-link" href="#timeout">Timeout</a>
+    </li>
+    <li>
+        <a class="govuk-link" href="#changepassword">Changing your password</a>
+    </li>
+    <li>
+        <a class="govuk-link" href="#changeemail">Changing your email</a>
+    </li>
+    <li>
+        <a class="govuk-link" href="#findlogin">Finding the login page</a>
+    </li>
+    <li>
+        <a class="govuk-link" href="#publish">Publish new documents</a>
+    </li>
+    <li>
+        <a class="govuk-link" href="#gethelp">Get help with Document exchange</a>
+    </li>
+</ul>
+<h2 class="heading-medium" id='signin'>Signing in</h2>
+<p>To access the Document exchange service, you need a DfE Sign-in account.</p>
+<h2 class="heading-small">Already have a DfE Sign-in account?</h2>
+<p>If you have a DfE Sign-in account, you need to request access to this service: <b>Document exchange</b> and the role <b>Document exchange user</b></p>
+<p>To request access, email an approver at your organisation with your request. You can find a list of approvers under ‘organisations’ on the navigation bar at the top of the screen.</p>
+<h2 class="heading-small">How do I get a DfE Sign-in account?</h2>
+<p>Create an account in four simple steps:</p>
+<ul class="list list-bullet">
+    <li>
+        Select the <a href='https://profile.signin.education.gov.uk/register'>create account</a> button from the <a href='https://services.signin.education.gov.uk/'>DfE Sign-in page</a>
+    </li>
+    <li>Enter your name and email address (it’s best to use your work email address or one that is clearly associated with your organisation)</li>
+    <li>We’ll send you an email to verify your email address; copy the code from this email and paste it into the box on the verification page</li>
+    <li>Create a memorable password of 12 characters or more (we recommend joining three or more familiar words)</li>
+</ul>
+<p>Once you have created an account, you can request access to your organisation and the services you need.</p>
+<p>You might have noticed the term ‘approver’ during account creation. An approver is someone at your organisation responsible for controlling who has access to DfE Sign-in and the services within the system. It is usually a senior person, such as an administrator, manager, or headteacher.</p>
+<p>For security reasons you will need the approval of your organisation’s approver before you can access services.</p>
+<h2 class="heading-small">How can I find a relevant approver?</h2>
+<p>Once your organisation request has been approved, you can find a list of all recognised approvers under ‘organisations’ on the navigation bar at the top of the screen.</p>
+<h2 class="heading-small">How do I get the Document exchange service added to my account?</h2>
+<p>Once you have a <a href='https://services.signin.education.gov.uk/auth/cb'>DfE Sign-in</a> account you need to request access to this service: <b><a href="@serviceStartUrl">Document exchange</a></b></p>
+<p>To request access, email an approver at your organisation with your request. You can find a list of approvers under ‘organisations’ on the navigation bar at the top of the screen.</p>
+<h2 class="heading-small">I’m an approver, how do I give access to the Document exchange service?</h2>
+<p>To give users access you need to add the service Document exchange and the role Document exchange User to each user’s account.</p>
+<p>Here's how to add the service and role to a user:</p>
+<ul class="list list-bullet">
+    <li>From the ‘manage users’ page, choose the required user</li>
+    <li>From the right-hand list, choose 'add services'</li>
+    <li>Choose the service and role you'd like this user to access</li>
+    <li>Save your changes</li>
+</ul>
+<p>If you are having problems using the DfE Sign-in service, follow <a href='https://help.signin.education.gov.uk/contact'>DfE Sign-in Help</a>. You will be able to request further assistance if required.</p>
+<h2 class="heading-medium" id='signout'>Signing out</h2>
+<p>Select ‘sign out’ in the top right-hand corner of the screen to sign out and return to the 'Start' page. For security reasons you should always sign out when you have finished using the service.</p>
+<h2 class="heading-medium" id='timeout'>Timeout</h2>
+<p>If you are signed in but are inactive for 20 minutes you will be signed out.</p>
+<h2 class="heading-medium" id='changepassword'>Changing your password</h2>
+<p>You can change your password at any time in your profile. If you forget your password you can reset it using the <a href='https://interactions.signin.education.gov.uk/a23dde76-7026-4fd8-aa75-e8ef21280f9c/resetpassword/request?clientid=services&redirect_uri=https://services.signin.education.gov.uk:443/auth/cb'>forgotten your password</a> page.</p>
+<h2 class="heading-medium" id='changeemail'>Changing your email</h2>
+<p>You can change your email address at any time in your profile. Once you have changed your email address you need to activate it on a verification email. For security you also need to request the email address change on an email sent to your old account.</p>
+<h2 class="heading-medium" id='findlogin'>Finding the login page</h2>
+<p>You can visit the service at <a href="@serviceStartUrl">Document exchange</a></p>
+<h2 class="heading-medium" id='publish'>Publish new documents</h2>
+<p>You can publish new documents by uploading them from your own device:</p>
+<ul class="list list-bullet">
+    <li>from the <a href="@Url.Action(nameof(OrganisationController.Home), NameOf<OrganisationController>())">document exchange homepage</a>, you need to select ‘Send a new document’</li>
+    <li>you can then upload your document from your computer device</li>
+    <li>your internal user will then get a notification for your published document </li>
+</ul>
+<h2 class="heading-medium" id='gethelp'>Get help with Document exchange</h2>
+<p>If you have any general questions about using our service you can <a href="@Model.ContactUsLink">contact us</a>.</p>

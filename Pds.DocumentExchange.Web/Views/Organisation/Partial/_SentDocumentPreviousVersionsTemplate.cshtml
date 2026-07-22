@@ -1,0 +1,32 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+
+{{#previousVersions.length}}
+<details role="group">
+
+    <summary role="button" aria-expanded="false">
+        <span class="summary">Previous versions</span>
+    </summary>
+
+    <div class="panel panel-border-narrow" aria-hidden="false">
+        {{#previousVersions}}
+        <div id="version {{version}}" class="documentVersionStandard">
+            Version {{version}}:
+            <br />
+
+            <a href="@(Url.ActionLink(nameof(OrganisationController.DownloadExternalExchangeDocument)) + "?documentReferenceString={{fileName}}|{{batchIdentifier}}|{{parentBatchIdentifier}}")"
+               title="Download {{fileName}} {{displayFileExtensionNote}}">
+                {{{displayFileName}}}
+            </a>
+            <br>
+            Sent by {{senderName}} {{displaySentDateTime}}
+
+        </div>
+
+        {{^isOldestVersion}}
+        <br />
+        {{/isOldestVersion}}
+
+        {{/previousVersions}}
+    </div>
+</details>
+{{/previousVersions.length}}

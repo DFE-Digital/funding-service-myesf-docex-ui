@@ -1,0 +1,7 @@
+﻿@model Pds.DocumentExchange.Web.Models.SupportTools.PublishedBatchItem
+
+    <td class="sortable-td" style="vertical-align: top;">
+        <a href="@Url.ActionLink(Model.DownloadDocumentsCsvActionLink, values: new { parentBatchId = Model.ParentBatchIdentifier })">
+            Documents
+        </a>
+    </td>

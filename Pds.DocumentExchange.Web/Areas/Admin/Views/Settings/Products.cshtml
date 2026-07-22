@@ -1,0 +1,10 @@
+﻿@using Pds.DocumentExchange.Web.Areas.Admin.Models
+@using Pds.DocumentExchange.Web.Areas.Admin.Controllers
+@model Products
+
+
+<a class="new-product" href="@Url.ActionLink(nameof(SettingsController.AddProduct))">Add a new product</a>
+
+<partial name="~/Areas/Lists/Views/_List.cshtml" />
+
+<script src="~/Scripts/ProductsTableFilter.js" defer></script>

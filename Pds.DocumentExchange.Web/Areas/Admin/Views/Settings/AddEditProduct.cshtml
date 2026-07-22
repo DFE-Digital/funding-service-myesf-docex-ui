@@ -1,0 +1,109 @@
+﻿@using Pds.DocumentExchange.Web.Areas.Admin.Controllers
+@using Pds.DocumentExchange.Web.Areas.Admin.Models
+@model AddEditPageViewModel
+@{
+    string GetCssErrorClass(bool condition, string cssClass)
+    {
+        return condition ? cssClass : string.Empty;
+    }
+
+    if (Model.Error)
+    {
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    @{
+                        if (Model.IdentifierError)
+                        {
+                            <li><a href="#product-identifier">@Html.Raw(Model.IdentifierErrorMessage)</a></li>
+                        }
+
+                        if (Model.NameError)
+                        {
+                            <li><a href="#product-name">@Html.Raw(Model.NameErrorMessage)</a></li>
+                        }
+
+                        if (Model.PluralNameError)
+                        {
+                            <li><a href="#product-plural-name">@Html.Raw(Model.PluralNameErrorMessage)</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+}
+
+<form action="@Url.ActionLink(nameof(SettingsController.ConfirmAddEditProduct))" method="post">
+    <div class="form-horizontal">
+        <!--Product identifier-->
+        <div class="form-group @GetCssErrorClass(Model.IdentifierError, "govuk-form-group--error")" id="product-identifier">
+            <label class="control-label col-md-2" for="identifier"><strong>Product identifier</strong></label>
+            <div id="identifiere-hint" class="govuk-hint">The product's unique 5 digit code.</div>
+            @{
+                if (Model.IdentifierError)
+                {
+                    <span id="identifier-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> @Html.Raw(Model.IdentifierErrorMessage)</span>
+                }
+            }
+            <div class="col-md-10">
+                <input class="form-control text-box single-line @GetCssErrorClass(Model.IdentifierError, "govuk-input--error")" data-val="true" name="Identifier" type="number" value="@Model.Identifier">
+            </div>
+        </div>
+        <!--Product Name-->
+        <div class="form-group @GetCssErrorClass(Model.NameError, "govuk-form-group--error")" id="product-name">
+            <label class="control-label col-md-2" for="Product_Name">Product name (singular)</label>
+            <div id="name-hint" class="govuk-hint"> This displays whenever a product is referred to in the singular </div>
+            @{
+                if (Model.NameError)
+                {
+                    <span id="identifier-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> @Html.Raw(Model.NameErrorMessage)</span>
+                }
+            }
+            <div class="col-md-10">
+                <input class="form-control text-box single-line @GetCssErrorClass(Model.NameError, "govuk-input--error")" data-val="true" name="Name" type="text" value="@Model.Name">
+            </div>
+        </div>
+        <!--Product Plural Name-->
+        <div class="form-group @GetCssErrorClass(Model.PluralNameError, "govuk-form-group--error")" id="product-plural-name">
+            <label class="control-label col-md-2" for="Product_PluralName">Product Plural name</label>
+            <div id="plural-name-hint" class="govuk-hint"> This displays whenever multiple products are referred to when grouped together </div>
+            @{
+                if (Model.PluralNameError)
+                {
+                    <span id="identifier-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> @Html.Raw(Model.PluralNameErrorMessage)</span>
+                }
+            }
+            <div class="col-md-10">
+                <input class="form-control text-box single-line @GetCssErrorClass(Model.PluralNameError, "govuk-input--error")" data-val="true" name="PluralName" type="text" value="@Model.PluralName">
+            </div>
+        </div>
+        <!--Agency Teams-->
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Product_AgencyTeams">DfE Teams</label>
+            <div id="agency-teams-hint" class="govuk-hint"> This is the team that will be able to access the products and will receive notifications relating to the product type </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.AgencyTeam, new SelectList(Model.AgencyTeams, "Value", "Text"), new { id = "Product_AgencyTeam", Name = "AgencyTeam", Class = "form-control single-line" })
+            </div>
+        </div>
+        <!--Can organisations upload-->
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Product_CanOrganisationsUpload">Can organisations upload</label>
+            <div id="can-organisations-upload-hint" class="govuk-hint"> This allows providers to upload the product in order to return it to the DfE </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.CanOrganisationsUpload, new[] { new SelectListItem("No", "false"), new SelectListItem("Yes", "true") }, new { id = "Product_CanOrganisationsUpload", Name = "CanOrganisationsUpload", Class = "form-control single-line" })
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="hidden" name="IsAddPage" value="@Model.IsAddPage.ToString()" />
+            <input type="hidden" name="OldIdentifier" value="@Model.OldIdentifier" />
+            <div class="form-group">
+                <button type="submit" class="button">Submit</button>
+            </div>
+            <div class="form-group">
+                <a href="@Url.ActionLink(nameof(SettingsController.Products))">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>

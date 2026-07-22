@@ -1,0 +1,33 @@
+﻿@model Pds.DocumentExchange.Web.Models.Organisation.SentDocument
+
+@if (Model.PreviousVersions.Any())
+{
+    <details role="group">
+
+        <summary role="button" aria-expanded="false">
+            <span class="summary">Previous versions</span>
+        </summary>
+
+        <div class="panel panel-border-narrow" aria-hidden="false">
+            @{
+                var documents = Model.PreviousVersions.ToList();
+
+                for (int i = 0; i < documents.Count; i++)
+                {
+                    var version = documents[i].Version;
+
+                    <div id="version + @version" class="documentVersionStandard">
+                        Version @version:
+                        <br />
+                        <partial name="TableData/_SentDocumentDownloadLinkCell.cshtml" model="@documents[i]" />
+                    </div>
+
+                    if (!documents[i].IsOldestVersion)
+                    {
+                        <br />
+                    }
+                }
+            }
+        </div>
+    </details>
+}

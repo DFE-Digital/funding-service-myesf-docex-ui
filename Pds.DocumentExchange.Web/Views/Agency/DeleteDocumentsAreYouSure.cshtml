@@ -1,0 +1,34 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Agency
+@using System
+@model DeleteDocumentsAreYouSure
+
+<form method="post" class="form" action="@Url.ActionLink(nameof(AgencyController.DeleteDocumentsConfirmation))">
+    @* _ContentTitle is a partial view in Pds.Core.Web *@
+    <partial name="/Views/Shared/_ContentTitle.cshtml" />
+    <p>
+        @Html.Raw(Model.SelectionCountMessage)
+    </p>
+
+    <partial name="~/Areas/Lists/Views/_List.cshtml" />
+
+    <h2 class="heading-medium">Confirm and delete</h2>
+    <p>By continuing, you will delete the documents and versions listed.</p>
+
+    @foreach (var document in Model.ListItems.OfType<AgencyExchangeDocument>())
+    {
+        <input type="hidden" name="@nameof(DeleteDocumentsConfirmation.DocumentReferences)" value="@document.Id" />
+        <input type="hidden" name="@nameof(DeleteDocumentsConfirmation.Publishers)" value="@document.PublishedBy" />
+
+        foreach (var documentPreviousVersion in document.PreviousVersions)
+        {
+            <input type="hidden" name="@nameof(DeleteDocumentsConfirmation.DocumentReferences)" value="@document.Id::@documentPreviousVersion.Id" />
+        }
+    }
+    <div class="form-group">
+        <button class="button" id="button-to-remove" type="submit">Delete</button>
+    </div>
+    <div class="form-group">
+        @Html.ActionLink("Cancel", nameof(AgencyController.DownloadDocuments))
+    </div>
+</form>

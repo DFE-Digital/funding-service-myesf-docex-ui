@@ -1,0 +1,6 @@
+﻿@model Pds.DocumentExchange.Web.Models.Agency.FileShareDocument
+
+<tr class="searchable-table-row" id="file-@Model.PositionInRenderedList">
+    <partial name="TableData/_FileShareDocumentNameCell.cshtml" />
+    <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ProductName" />
+</tr>

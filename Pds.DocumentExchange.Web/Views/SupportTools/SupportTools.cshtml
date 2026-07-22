@@ -1,0 +1,45 @@
+﻿@using Pds.DocumentExchange.Web.Models.SupportTools
+@model SupportToolsModel
+
+@if (Model.IsUserAdvancedOrAdmin)
+{
+    <section>
+        <div class="form-group">
+            <div class="form-group">
+                <h2 class="bold-medium">Documents published by DfE</h2>
+                <h3>View the latest 50 batches of documents published by the DfE.</h3>
+            </div>
+            <div id="get-started" class="get-started">
+                <a class="button button-get-started" href="~/support-tools/documents-published-by-dfe">View documents published by DfE</a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="form-group">
+            <div class="form-group">
+                <h2 class="bold-medium">Delete documents</h2>
+                <h3>Search for a document and delete individual versions or all versions for a document.</h3>
+            </div>
+            <div>
+                <a class="button button-get-started" href="~/support-tools/delete-documents">Delete documents</a>
+            </div>
+        </div>
+    </section>
+
+}
+
+@if (Model.IsAnyDocumentExchangeInternalUser)
+{
+    <section>
+        <div class="form-group">
+            <div class="form-group">
+                <h2 class="bold-medium">Reports</h2>
+                <h3>Access reports for document exchange.</h3>
+            </div>
+            <div>
+                <a class="button button-get-started" href="~/support-tools/reports">Document exchange reports</a>
+            </div>
+        </div>
+    </section>
+}

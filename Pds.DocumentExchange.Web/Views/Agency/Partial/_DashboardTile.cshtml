@@ -1,0 +1,12 @@
+﻿@model Pds.DocumentExchange.Web.Models.Agency.DashboardTile
+
+<li class="service-transaction">
+    <div class="column-third margin-top">
+        <a id="@Model.LinkId" class="dashboard-links" href="@Model.LinkUrl">
+            <span id="@Model.TitleId" class="service-name">@Model.Title</span>
+            <span class="@Model.AlertClass">
+                @Model.AlertText
+            </span>
+        </a>
+    </div>
+</li>

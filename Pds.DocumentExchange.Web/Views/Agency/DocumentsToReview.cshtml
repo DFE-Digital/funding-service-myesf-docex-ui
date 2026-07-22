@@ -1,0 +1,58 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Agency
+@model DocumentsToReview
+
+@{
+    var styleThatHides = "hidden";
+    var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+    var removeMsgVisible = Model.ErrorAction != null && Model.ErrorAction.Equals(nameof(AgencyController.RemoveDocumentsAreYouSure)) ? String.Empty : styleThatHides;
+    var downloadMsgVisible = Model.ErrorAction != null && Model.ErrorAction.Equals(nameof(AgencyController.DocumentsToReviewReport)) ? String.Empty : styleThatHides;
+}
+
+<div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+    <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+    <ul class="error-summary-list">
+        <li>
+            <a href="#document-list">
+                <span class="remove @removeMsgVisible">Select the documents that you want to remove</span>
+                <span class="download @downloadMsgVisible">Select the document names and errors that you want to download</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+@if (Model.AnyDocumentsAvailable)
+{
+    <form method="post" class="form" id="refreshable-data">
+        <partial name="~/Areas/Lists/Views/_Options.cshtml" />
+        <partial name="~/Areas/Lists/Views/_FilterResultsUpdatedAlert.cshtml" />
+
+        @* _ContentTitle partial inherited from Pds.Core.Web *@
+        <partial name="/Views/Shared/_ContentTitle.cshtml" />
+
+        <div class="form-group">
+            <ol class="list list-number">
+                <li>Select a list of document names and errors.</li>
+                <li>Download these as an OpenDocument Spreadsheet (<abbr title="OpenDocument Spreadsheet">ODS</abbr>).</li>
+                <li>Remove these documents from the table below.</li>
+                <li>Correct the document names in your local area.</li>
+                <li>Add the documents back into the file share.</li>
+            </ol>
+        </div>
+
+        <partial name="~/Areas/Lists/Views/_NumberOfSelectedItems.cshtml" />
+        <partial name="~/Areas/Lists/Views/_Filters.cshtml" />
+
+        <div class="column-two-thirds document-list">
+            <partial name="~/Areas/Lists/Views/_List.cshtml" />
+        </div>
+    </form>
+
+    <script src="~/Scripts/Organisation/MultipleChoiceActionForm.js" defer></script>
+    <script src="~/_content/Pds.Core.Web.Components/js/lists.mustache.min.js" defer></script>
+}
+else
+{
+    <partial name="/Views/Shared/_ContentTitle.cshtml" />
+    <partial name="@Model.NoDocumentsPartialName" />
+}

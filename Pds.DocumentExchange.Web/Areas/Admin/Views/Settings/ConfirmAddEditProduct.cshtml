@@ -1,0 +1,36 @@
+﻿@using Pds.DocumentExchange.Web.Areas.Admin.Controllers
+@using  Pds.DocumentExchange.Web.Areas.Admin.Models;
+@model ConfirmAddEditPageViewModel;
+
+@{var canOrganisationUpload = Model.Product.CanOrganisationsUpload ? "Yes" : "No";}
+
+<form action="@Url.ActionLink(nameof(SettingsController.AddOrUpdateProduct))" method="post">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <table>
+                <tbody>
+                    <tr><th>Identifier</th><td>@Model.Product.Identifier</td></tr>
+                    <tr><th>Document name (singular)</th><td>@Model.Product.Name</td></tr>
+                    <tr><th>Document Plural name</th><td>@Model.Product.PluralName</td></tr>
+                    <tr><th>Agency Teams</th><td>@Model.AgencyTeamFriendlyName</td></tr>
+                    <tr><th>Can organisations upload</th><td>@canOrganisationUpload</td></tr>
+                </tbody>
+            </table>
+
+            <input name="Identifier" type="hidden" value="@Model.Product.Identifier">
+            <input name="Name" type="hidden" value="@Model.Product.Name">
+            <input name="PluralName" type="hidden" value="@Model.Product.PluralName">
+            <input name="AgencyTeam" type="hidden" value="@Model.Product.AgencyTeam">
+            <input name="CanOrganisationsUpload" type="hidden" value="@Model.Product.CanOrganisationsUpload.ToString()">
+
+            <input name="OldIdentifier" type="hidden" value="@Model.OldIdentifier" />
+            <input name="IsAddPage" type="hidden" value="@Model.IsAddPage.ToString()" />
+            <div class="form-group">
+                <button type="submit" class="button">Submit</button>
+            </div>
+            <div class="form-group">
+                <a href="@Url.ActionLink(nameof(SettingsController.Products))">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>

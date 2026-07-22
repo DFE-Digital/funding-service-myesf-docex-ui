@@ -1,0 +1,26 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@model Pds.DocumentExchange.Web.Models.Organisation.Home
+
+<h2 class="heading-medium">Documents for @Model.CurrentUser.ProviderName</h2>
+<p>
+    <a href="@Url.ActionLink(nameof(OrganisationController.ReceivedDocuments))">
+        Documents you've received from <abbr title="Department for Education">DfE</abbr>
+    </a>
+    @if (Model.CountOfNewDocuments > 0)
+    {
+        <strong class="govuk-tag govuk-bgred gapLeft">@Model.CountOfNewDocuments new</strong>
+    }
+</p>
+<p>
+    <a href="@Url.ActionLink(nameof(OrganisationController.SentDocuments))">
+        Documents you've sent to <abbr title="Department for Education">DfE</abbr>
+    </a>
+</p>
+<p>
+    @if (Model.CurrentUser.IsExternalUser)
+    {
+        <a href="@Url.ActionLink(Model.SendNewDocumentActionName)">
+            Send a new document
+        </a>
+    }
+</p>

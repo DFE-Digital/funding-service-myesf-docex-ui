@@ -1,0 +1,39 @@
+﻿@using Pds.DocumentExchange.Web.Areas.ViewAsOrganisation.Controllers
+@using Pds.DocumentExchange.Web.Areas.ViewAsOrganisation.Models
+@using static Pds.DocumentExchange.Web.Helpers.ControllerHelper
+@model SearchForAnOrganisation
+
+@{
+    const string styleThatHides = "hidden";
+    var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+    var formErrorVisibilityClass = Model.Error ? "form-group-error" : string.Empty;
+    var fieldsetErrorVisibilityClass = Model.Error ? "after-error-summary" : string.Empty;
+}
+
+@using (Html.BeginForm(
+nameof(OrganisationSearchController.OrganisationSearchResults),
+NameOf<OrganisationSearchController>(),
+FormMethod.Get,
+new { id = "provider-search", @class = "provider-search" }))
+{
+    <div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+        <ul class="error-summary-list">
+            <li><a href="#provider-search-main">Enter an organisation name or UKPRN</a></li>
+        </ul>
+    </div>
+    <fieldset class="@fieldsetErrorVisibilityClass">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l" id="provider-search-legend">
+            <p>Enter an organisation name or UKPRN to search for an organisation.</p>
+        </legend>
+        <div class="form-group @formErrorVisibilityClass">
+            <span class="error-message @errorVisibilityClass">Enter an organisation name or UKPRN</span>
+            @{
+                <div class="provider-search-content">
+                    <input class="js-search-focus" id="provider-search-main" name="@nameof(OrganisationSearchResults.SearchTerm)" title="Search" type="text">
+                    <input class="submit" type="submit" value="Search" id="provider-search-submit">
+                </div>
+            }
+        </div>
+    </fieldset>
+}

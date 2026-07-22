@@ -1,0 +1,22 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Agency
+@model PublishDocumentsConfirmation
+
+<form method="get" class="form" action="@Url.ActionLink(nameof(AgencyController.FileShare))">
+    <div class="form-group">
+        <div class="govuk-box-highlight">
+            <h1 class="bold-xlarge">@Model.ContentTitle</h1>
+        </div>
+    </div>
+    <div class="form-group">
+        <h2 class="heading-medium">What happens next</h2>
+        <p>We’ll send you an email to confirm that we've published your documents. It may take a few minutes for all of your documents to show in provider view.</p>
+    </div>
+    <div class="form-group">
+        <h2 class="heading-medium">Publish more documents</h2>
+        <p>You can add more documents to your file share, then publish them using document exchange.</p>
+    </div>
+    <div class="form-group">
+        <button class="button" type="submit">Finish</button>
+    </div>
+</form>

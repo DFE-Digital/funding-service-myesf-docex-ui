@@ -1,0 +1,14 @@
+﻿@model Pds.DocumentExchange.Web.Models.Organisation.SentDocument
+
+<tr class="searchable-table-row" id="file-@Model.PositionInRenderedList">
+    <td class="sortable-td" style="vertical-align: top;">
+        <partial name="TableData/_SentDocumentDownloadLinkCell.cshtml" />
+        <partial name="_SentDocumentPreviousVersionsView.cshtml" />
+    </td>
+    <td class="sortable-td" style="vertical-align: top;">
+        @Model.ProductName
+    </td>
+    <td class="sortable-td" style="vertical-align: top;">
+        @Model.Version
+    </td>
+</tr>

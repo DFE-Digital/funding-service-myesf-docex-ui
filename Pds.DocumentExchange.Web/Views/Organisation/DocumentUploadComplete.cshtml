@@ -1,0 +1,34 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Organisation
+@model DocumentUploadComplete
+<form method="get" class="form" action="@Url.ActionLink(nameof(OrganisationController.Home))">
+    <div class="form-group">
+        <div class="govuk-box-highlight">
+            <h1 class="bold-xlarge">
+                @Model.ContentTitle
+            </h1>
+            <p class="font-medium">
+                @if (Model.SelectAnOrganisationRequired)
+                {
+                    @:The document you sent to DfE is:
+                }
+                '@Model.DocumentFileName'
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <h2 class="heading-medium">What happens next</h2>
+        <p>We’ll send you an email to confirm that we’ve received your document.</p>
+        <p>
+            It may take a few minutes for your document to show on
+            <a href="@Url.ActionLink(nameof(OrganisationController.SentDocuments))">the list of documents you've sent to <abbr title="Department for Education">DfE</abbr></a>.
+        </p>
+        <p>
+            You can also
+            <a href="@Url.ActionLink(Model.SendNewDocumentActionName)">send another document</a>.
+        </p>
+    </div>
+    <div class="form-group">
+        <button class="button" type="submit">Finish</button>
+    </div>
+</form>

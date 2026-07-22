@@ -1,0 +1,23 @@
+﻿@using Pds.DocumentExchange.Web.Models.Agency
+@using Pds.DocumentExchange.Web.Models.Shared
+@model DeleteDocuments
+
+<div class="form-group">
+    <table data-checkboxes>
+        <thead>
+            <tr class="first">
+                <partial name="/Views/Shared/TableData/_TextHeaderCell.cshtml"
+                         model='"Document type"' />
+                <partial name="/Views/Shared/TableData/_TableHeaderCell.cshtml"
+                         model='new TableHeaderCell { Value = "Provider name", CssClasses = "table-header-width-one-quarter" }' />
+                <partial name="/Views/Shared/TableData/_TextHeaderCell.cshtml"
+                         model='"UKPRN"' />
+                <partial name="/Views/Shared/TableData/_TableHeaderCell.cshtml"
+                         model='new TableHeaderCell { Value = "Uploaded", CssClasses = "table-header-width-one-third" }' />
+            </tr>
+        </thead>
+        <tbody id="list-items-container">
+            <partial name="~/Areas/Lists/Views/_Items.cshtml" />
+        </tbody>
+    </table>
+</div>

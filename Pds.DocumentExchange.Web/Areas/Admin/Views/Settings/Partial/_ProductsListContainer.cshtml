@@ -1,0 +1,16 @@
+﻿@using Pds.DocumentExchange.Web.Areas.Admin.Models
+@model Products
+
+<div>
+    <fieldset>
+        <div class="form-group">
+            <table class="products-table" data-checkboxes>
+                <partial name="@Model.TableHeaderPartialName" />
+                <tbody id="list-items-container">
+                    <partial name="~/Areas/Lists/Views/_Items.cshtml" />
+                </tbody>
+            </table>
+        </div>
+
+    </fieldset>
+</div>

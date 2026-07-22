@@ -1,0 +1,141 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Organisation
+@model SelectDocument
+
+@{
+    const string styleThatHides = "hidden";
+    var validationErrorVisibilityClass = Model.DocumentValidationErrors?.Count > 0 ? string.Empty : styleThatHides;
+    var validationFormErrorVisibilityClass = Model.DocumentValidationErrors?.Count > 0 ? "form-group-error" : string.Empty;
+}
+
+<h1 class="heading-xlarge" id="select-document-message">Send your document</h1>
+
+<div class="form-group" id="uploadFileDiv">
+    <form id="uploadFileForm" method="post" class="form"
+          action="@Url.ActionLink(nameof(OrganisationController.UploadDocument))"
+          enctype="multipart/form-data">
+
+        @Html.HiddenFor(model => model.MaxFileUploadSize)
+
+        @for (int i = 0; i < Model.AllowedFileExtensions.Count; i++)
+        {
+        @Html.HiddenFor(model => Model.AllowedFileExtensions[i], new { @class = "AllowedFileExtensions" })
+        }
+
+        <div id="validation-error-div" class="error-summary @validationErrorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+            <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+            <ul class="error-summary-list">
+                @if (Model.DocumentValidationErrors?.Count > 0)
+                {
+                    foreach (string validationErrorMessage in Model.DocumentValidationErrors)
+                    {
+                <li><a href="#documentType">@validationErrorMessage</a></li>
+                    }
+                }
+                <li id="file-format-error" class="hidden"><a href="#documentType">Select a document with a valid file format</a></li>
+                <li id="file-size-error" class="hidden"><a href="#documentType">Select a document within the file size limit</a></li>
+                <li id="file-empty-error" class="hidden"><a href="#documentType">Uploaded file is empty</a></li>
+            </ul>
+        </div>
+
+        <div class="form-group" id="uploadFileDiv">
+            <div class="form-block" id="form-upload">
+                <label class="form-label visuallyhidden" for="fileInput">Choose a document to upload</label>
+                <p>Each document must be in @string.Join(", ", Model.AllowedFileExtensions) format.</p>
+                <p>Maximum file size limited to @Model.MaxFileUploadSize MB. </p>
+                <div class="form-block" id="fileUploadPlaceholder">
+                    <p>Upload a document</p>
+                    <input id="fileInput" name="@nameof(UploadDocumentRequest.FileInput)"
+                           type="file" class="fileUploads">
+                    <label class="form-label visuallyhidden" for="fileInput">Upload a document</label>
+                </div>
+            </div>
+            <div class="form-group validationFormErrorVisibilityClass">
+                <table class="file-upload-table hidden" id="documentsToSend">
+                    <thead>
+                        <tr>
+                            <th>Document name</th>
+                            <th>Document type</th>
+                            <th>Version</th>
+                            <th class="numeric"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="document"><a href="#" target="_blank" rel="external noopener noreferrer"></a></td>
+                            <td>@Model.ProductName</td>
+                            <td>@Model.NextVersionNumber</td>
+                            <td><a class="remove-link" href="#">Remove</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="nonJavaScript" class="form-block">
+                <div class="form-block">
+                    <p>
+                        Document type: @Model.ProductName
+                        <br>
+                        Version: @Model.NextVersionNumber
+                    </p>
+                </div>
+                <button class="button" type="submit" data-prevent-double-click="true">Send</button>
+            </div>
+
+            <input type="hidden"
+                   name="@nameof(UploadDocumentRequest.UploadingForUkprn)"
+                   value="@Model.UploadingForUkprn" />
+            <input type="hidden"
+                   name="@nameof(UploadDocumentRequest.ProductIdentifier)"
+                   value="@Model.ProductIdentifier" />
+            <input id="sendButton" type="submit" class="button hidden" value="Send" />
+            <label class="form-label visuallyhidden" for="sendButton">Send</label>
+        </div>
+    </form>
+</div>
+
+<div class="form-group hidden" id="removeFileDiv">
+    @{
+        const string errorMessage = "Select yes if you want to remove";
+        var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+        var formErrorVisibilityClass = Model.Error ? "form-group-error" : string.Empty;
+        var fieldsetErrorVisibilityClass = Model.Error ? "after-error-summary" : string.Empty;
+        var ConfirmationMessage = "Are you sure you want to remove";
+    }
+
+    <div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+        <ul class="error-summary-list">
+            <li><a href="#organisation">@errorMessage  <span class="upload-file-name"></span></a></li>
+        </ul>
+    </div>
+    <form method="post" class="form" id="remove-document-form" action="#">
+        <fieldset class="@fieldsetErrorVisibilityClass">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl" id="organisation">
+                <h1 class="heading-xlarge" id="confirmation-message">@ConfirmationMessage <span class="upload-file-name"></span>?</h1>
+            </legend>
+
+            <div class="form-group  @formErrorVisibilityClass">
+                <span class="error-message @errorVisibilityClass">@errorMessage  <span class="upload-file-name"></span></span>
+                <div class="multiple-choice clear-none">
+                    <input id="radio-1" type="radio"
+                           class="single-choice-action-form-option"
+                           name="ConfirmationChoice" value="true">
+                    <label for="radio-1">Yes</label>
+                </div>
+                <div class="multiple-choice clear-none">
+                    <input id="radio-2" type="radio"
+                           class="single-choice-action-form-option"
+                           name="ConfirmationChoice" value="false">
+                    <label for="radio-2">No</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            <button class="button">Continue</button>
+        </div>
+    </form>
+</div>
+
+<script src="~/Scripts/Organisation/SelectDocument.js" defer></script> 

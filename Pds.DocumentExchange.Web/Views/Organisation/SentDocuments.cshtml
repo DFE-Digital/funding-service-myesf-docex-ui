@@ -1,0 +1,29 @@
+﻿@using Pds.DocumentExchange.Web.Models.Organisation
+@model SentDocuments
+
+@if (Model.AnyDocumentsAvailable)
+{
+    <form method="post" class="form">
+        <partial name="~/Areas/Lists/Views/_Options.cshtml" />
+        <partial name="~/Areas/Lists/Views/_FilterResultsUpdatedAlert.cshtml" />
+
+        <div class="form-group">
+            @* _ContentTitle partial inherited from Pds.Core.Web *@
+            <partial name="/Views/Shared/_ContentTitle.cshtml" />
+            <p>If you’ve just sent a document, it can take a few minutes to show here.</p>
+        </div>
+
+        <partial name="~/Areas/Lists/Views/_Filters.cshtml" />
+
+        <div class="column-two-thirds document-list">
+            <partial name="~/Areas/Lists/Views/_List.cshtml" />
+        </div>
+    </form>
+
+    <script src="~/_content/Pds.Core.Web.Components/js/lists.mustache.min.js" defer></script>
+}
+else
+{
+    <partial name="/Views/Shared/_ContentTitle.cshtml" />
+    <partial name="@Model.NoDocumentsPartialName" />
+}

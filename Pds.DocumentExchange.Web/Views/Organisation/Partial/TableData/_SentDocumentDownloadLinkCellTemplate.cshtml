@@ -1,0 +1,8 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+
+<a href="@(Url.ActionLink(nameof(OrganisationController.DownloadExternalExchangeDocument)) + "?documentReferenceString={{fileName}}|{{batchIdentifier}}|{{parentBatchIdentifier}}")"
+   title="Download {{fileName}} {{displayFileExtensionNote}}">
+    {{{displayFileName}}}
+</a>
+<br>
+Sent by {{senderName}} {{displaySentDateTime}}

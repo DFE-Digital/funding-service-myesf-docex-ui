@@ -1,0 +1,29 @@
+﻿@using Pds.DocumentExchange.Web.Models.Agency 
+@model RemoveDocumentsConfirmation
+
+<form method="get" class="form" action="@Url.ActionLink(Model.EntryAction)">
+    <div class="form-group">
+        <div class="govuk-box-highlight">
+            <h1 class="bold-xlarge">@Model.ContentTitle</h1>
+        </div>
+    </div>
+    <div class="form-group">
+        @if (Model.FileNames.Count() == 1)
+        {
+            <p>The document you’ve removed is @Model.FileNames.Single().</p>
+        }
+        else
+        {
+            <p>The documents you’ve removed are:</p>
+            <ul class="list list-bullet">
+                @foreach (var fileName in Model.FileNames)
+                {
+                    <li>@fileName</li>
+                }
+            </ul>
+        }
+    </div>
+    <div class="form-group">
+        <button class="button" type="submit">Finish</button>
+    </div>
+</form>

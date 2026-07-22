@@ -1,0 +1,110 @@
+﻿@using Pds.DocumentExchange.Services.Enums
+@using Pds.DocumentExchange.Web.Controllers
+@model Pds.DocumentExchange.Web.Models.Agency.AgencyExchangeDocument
+<div>
+    <details role="group">
+        <summary role="button" aria-controls="details-content-@Model.PositionInRenderedList" aria-expanded="false">
+            <span class="summary">Document details</span>
+        </summary>
+        <div class="panel panel-border-narrow" id="details-content-@Model.PositionInRenderedList" aria-hidden="true">
+            <p>
+                <strong class="bold-small">Document name:</strong>
+                <br />
+                @Html.Raw(Model.DisplayFileName)
+            </p>
+            <div>
+                <details role="group">
+                    <summary role="button" aria-controls="versions-content-@Model.PositionInRenderedList" aria-expanded="false">
+                        <span class="summary">Versions</span>
+                    </summary>
+                    <div class="panel panel-border-narrow" id="versions-content-@Model.PositionInRenderedList" aria-hidden="true">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Versions
+                                    </th>
+                                    <th>
+                                        Downloaded at
+                                    </th>
+                                    <th>
+                                        Downloaded by
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @if (Model.IsDeleted)
+                                        {
+                                            @Model.VersionNumber
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(Model.VersionWithHyperlink)                                                                    
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Model.Status == DownloadDocumentStatus.Downloaded)
+                                        {
+                                            @Model.DisplayStatusDateTime
+                                        }
+                                        else
+                                        {
+                                            <p>Not applicable</p> 
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Model.Status == DownloadDocumentStatus.Downloaded)
+                                        {
+                                           @Model.DownloadedBy
+                                        }
+                                        else
+                                        {
+                                            <p>Not applicable</p>
+                                        }
+                                    </td>
+                                </tr>
+                                @foreach (var previousVersion in Model.PreviousVersions?.ToList())
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (previousVersion.IsDeleted)
+                                            {
+                                                @previousVersion.VersionNumber
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw(previousVersion.VersionWithHyperlink)
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (previousVersion.Status == DownloadDocumentStatus.Downloaded)
+                                            {
+                                                @previousVersion.DisplayStatusDateTime
+                                            }
+                                            else
+                                            {
+                                                <p>Not applicable</p>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (previousVersion.Status == DownloadDocumentStatus.Downloaded)
+                                            {
+                                                @previousVersion.DownloadedBy
+                                            }
+                                            else
+                                            {
+                                                <p>Not applicable</p>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </details>
+</div>

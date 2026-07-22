@@ -1,0 +1,20 @@
+﻿<td class="sortable-td" style="vertical-align: top;">
+
+    {{#isNew}}
+    <partial name="/Views/Shared/_StatusNewTag.cshtml" />
+    {{/isNew}}
+
+    {{^isNew}}
+
+    <partial name="/Views/Shared/_StatusDownloadedTag.cshtml" />
+
+    <br />
+    {{downloadedBy}}
+    <br />
+
+    {{#displayStatusDateTime}}
+    <text>{{displayStatusDateTime}}</text>
+    {{/displayStatusDateTime}}
+
+    {{/isNew}}
+</td>

@@ -1,0 +1,12 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Helpers
+@model Pds.DocumentExchange.Web.Models.Agency.FileShare
+
+<p>
+    You can <a href="@Url.ActionLink(nameof(AgencyController.DocumentsToPublish))">
+        @ContentHelper.GetDocumentCountMessage(Model.CountOfValidDocuments, "publish {count} {document(s)}")</a>.
+</p>
+<p>
+    You need to <a href="@Url.ActionLink(nameof(AgencyController.DocumentsToReview))">
+        @ContentHelper.GetDocumentCountMessage(Model.CountOfInvalidDocuments, "review {count} {document(s)}")</a>.
+</p>

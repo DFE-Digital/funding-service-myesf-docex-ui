@@ -1,0 +1,37 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.DTOs
+
+<tr class="searchable-table-row" id="file-{{positionInRenderedList}}">
+    <td class="document-checkbox-td sortable-td">
+        <div class="document-checkbox-div multiple-choice">
+            <input id="checkbox-file-{{positionInRenderedList}}" name="@nameof(IDocumentReferenceList.DocumentReferences)" type="checkbox" value="{{id}}" class="multiple-choice-action-form-option">
+            <label for="checkbox-file-{{positionInRenderedList}}"><span class="visuallyhidden">Select {{fileName}}</span></label>
+        </div>
+    </td>
+    <td class="sortable-td" style="vertical-align: top;">
+        <a href="@(Url.ActionLink(nameof(OrganisationController.DownloadExternalExchangeDocument)) + "?documentReferenceString={{fileName}}|{{batchIdentifier}}|{{parentBatchIdentifier}}")"
+           title="Download {{fileName}} {{displayFileExtensionNote}}">
+            {{{displayFileName}}}
+        </a>
+        <br />
+        {{displayReceivedDateTime}}
+    </td>
+    <td class="sortable-td" style="vertical-align: top;">
+        {{recipientOrganisationName}}
+    </td>
+    <td class="sortable-td" style="vertical-align: top;">
+        {{productName}}
+    </td>
+    <td class="sortable-td" style="vertical-align: top;">
+        {{#isNew}}
+            <partial name="/Views/Shared/_StatusNewTag.cshtml" />
+        {{/isNew}}
+        {{^isNew}}
+            <partial name="/Views/Shared/_StatusDownloadedTag.cshtml" />
+            <br />
+            {{downloadedBy}}
+            <br />
+            {{displayStatusDateTime}}
+        {{/isNew}}
+    </td>
+</tr>

@@ -1,0 +1,11 @@
+﻿@model Pds.DocumentExchange.Web.Models.SupportTools.PublishedBatchItem
+
+<tr class="searchable-table-row" id="@Model.ParentBatchIdentifier">
+    <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.DateAndTime.ToString("dd/MM/yyyy HH:mm:ss")" />
+    <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ParentBatchIdentifier.ToString()" />
+    <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.EmailAddress" />
+    <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.NumberOfDocuments.ToString()" />
+    <partial name="/Views/SupportTools/Partial/_DocumentsDownloadLinkCell.cshtml" model=Model />
+    <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.NumberOfEmails.ToString()" />
+    <partial name="/Views/SupportTools/Partial/_EmailsDownloadLinkCell.cshtml" model=Model />
+</tr>

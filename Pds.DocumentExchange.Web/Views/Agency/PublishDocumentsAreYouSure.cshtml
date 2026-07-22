@@ -1,0 +1,54 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Agency
+@using Pds.DocumentExchange.Web.Helpers
+@model PublishDocumentsAreYouSure
+
+@{
+    const string styleThatHides = "hidden";
+    var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+}
+
+<form method="post" class="form" action="@Url.ActionLink(nameof(AgencyController.PublishDocumentsConfirmation))">
+
+    <div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+        <ul class="error-summary-list">
+            <li>
+                <a href="#publish-confirm">Select yes if you want to publish these documents</a>
+            </li>
+        </ul>
+    </div>
+
+    <fieldset class="inline @(Model.Error ? "after-error-summary" : string.Empty)">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl" id="publish-confirm">
+            <partial name="/Views/Shared/_ContentTitle.cshtml"/>
+        </legend>
+        <p>
+            @ContentHelper.GetDocumentCountMessage(Model.Count, "Selecting Yes will publish {count} {document(s)}.")
+        </p>
+        <div class="form-group @(Model.Error ? "form-group-error" : string.Empty)">
+            @if (Model.Error)
+            {
+                <span class="error-message">Select yes if you want to publish these documents</span>
+            }
+
+            <input type="hidden" name="@nameof(PublishDocumentsConfirmation.SelectedProductId)" value="@Model.SelectedProductId"/>
+            <input type="hidden" name="@nameof(PublishDocumentsConfirmation.SelectedTeam)" value="@Model.SelectedTeam"/>
+
+            <div class="multiple-choice">
+                <input id="radio-inline-1" type="radio" class="single-choice-action-form-option"
+                       name="@nameof(PublishDocumentsConfirmation.PublishConfirmed)" value="true">
+                <label for="radio-inline-1">Yes</label>
+            </div>
+            <div class="multiple-choice">
+                <input id="radio-inline-2" type="radio" class="single-choice-action-form-option"
+                       name="@nameof(PublishDocumentsConfirmation.PublishConfirmed)" value="false">
+                <label for="radio-inline-2">No</label>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-group">
+        <button class="button" type="submit">Continue</button>
+    </div>
+</form>
+<script src="~/Scripts/Organisation/SingleChoiceActionForm.js" defer></script>

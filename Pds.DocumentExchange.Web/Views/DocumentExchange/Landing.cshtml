@@ -1,0 +1,27 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using static Pds.DocumentExchange.Web.Helpers.ControllerHelper
+@model Pds.DocumentExchange.Web.Models.DocumentExchange.Landing
+
+<p>Use this service to:</p>
+<ul class="list list-bullet">
+    <li>submit documents to the Department for Education (<abbr title="Department for Education">DfE</abbr>)</li>
+    <li>view and download documents published by the <abbr title="Department for Education">DfE</abbr></li>
+</ul>
+
+<div class="transaction">
+    <div class="get-started">
+        <a class="button button-get-started" href="@Url.Action(nameof(AccountController.Login), NameOf<AccountController>())">
+            Sign in or create an account
+        </a>
+    </div>
+</div>
+
+<h2 class="heading-large">Before you start</h2>
+<p>
+    See the <a href="@Url.Action(nameof(DocumentExchangeController.UserGuide))">Document exchange user guide</a> for more information.
+</p>
+
+<h3 class="heading-medium">Contact us</h3>
+<p>
+    If you need help with anything, you can <a href="@Model.ContactUsLink">submit an enquiry</a>.
+</p>

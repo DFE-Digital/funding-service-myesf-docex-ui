@@ -1,0 +1,76 @@
+﻿@using Pds.DocumentExchange.Web.Areas.ViewAsOrganisation.Controllers
+@using Pds.DocumentExchange.Web.Areas.ViewAsOrganisation.Models
+@using static Pds.DocumentExchange.Web.Helpers.ControllerHelper
+@model OrganisationSearchResults
+
+@if (Model.Organisations.Any())
+{
+    var organisationsCount = Model.Organisations.Count;
+    var organisationsMessage =
+        $"{organisationsCount}{(Model.HasMoreResults ? "+" : string.Empty)}" +
+        $" organisation{(organisationsCount > 1 ? "s" : string.Empty)}";
+
+    <p>
+        We found @organisationsMessage matching your search for "@Model.SearchTerm".
+    </p>
+
+    @if (Model.HasMoreResults)
+    {
+        <p>
+            There could be more matching organisations than are shown below.
+            If you cannot find the organisation you are looking for, please try a more specific search term.
+        </p>
+    }
+
+    <p>
+        Select an organisation to begin viewing as that organisation.
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    UKPRN
+                </th>
+                <th>
+                    Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var organisation in Model.Organisations)
+            {
+                var startUrl = Url.Action(
+                    nameof(ViewAsOrganisationController.StartViewingAsOrganisation),
+                    NameOf<ViewAsOrganisationController>(),
+                    new { ukprn = organisation.Ukprn, providerName = organisation.Name });
+
+                <tr>
+                    <td>
+                        <a href="@startUrl">
+                            @organisation.Ukprn
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@startUrl">
+                            @organisation.Name
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>
+        There were no organisations matching your search for "@Model.SearchTerm".
+    </p>
+    <p>
+        Please try a different search term.
+    </p>
+}
+<p>
+    <a href="@Url.Action(nameof(OrganisationSearchController.SearchForAnOrganisation), NameOf<OrganisationSearchController>())">
+        Back to search
+    </a>
+</p>

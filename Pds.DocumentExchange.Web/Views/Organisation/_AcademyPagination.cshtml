@@ -1,0 +1,12 @@
+﻿@using Pds.DocumentExchange.Web.Helpers
+@model Pds.DocumentExchange.Web.Models.Shared.Pagination
+
+@if (Model.TotalPages > 1)
+{
+    <div class="pager" style="margin-top:0" data-paging data-page-size="@Model.PageSize">
+        <partial name="/Views/Shared/_PagerControls.cshtml" />
+        <div class="pager-summary">
+            Showing @Model.FirstItemNumberOnSelectedPage to @Model.LastItemNumberOnSelectedPage of @Model.TotalItems academies
+        </div>
+    </div>
+}

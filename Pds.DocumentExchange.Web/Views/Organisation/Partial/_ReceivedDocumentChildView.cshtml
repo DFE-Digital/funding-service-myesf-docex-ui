@@ -1,0 +1,16 @@
+﻿@using Pds.DocumentExchange.Services.Enums
+@model Pds.DocumentExchange.Web.Models.Organisation.ReceivedDocument
+
+<tr class="searchable-table-row" id="file-@Model.PositionInRenderedList">
+    <td class="sortable-td" style="vertical-align: top;">
+        <partial name="/Views/Shared/TableData/_ExchangeDocumentDownloadLink.cshtml" />
+        @if (Model.Status == DownloadDocumentStatus.New)
+        {
+            <br />
+            <partial name="/Views/Shared/_StatusNewTag.cshtml" />
+        }
+        <br />
+        @Model.DisplayReceivedDateTime
+    </td>
+    <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ProductName" />
+</tr>

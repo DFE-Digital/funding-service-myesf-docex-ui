@@ -1,0 +1,22 @@
+﻿@using Pds.DocumentExchange.Services.Enums
+@model Pds.DocumentExchange.Web.Models.Shared.ExchangeDocument
+
+<td class="sortable-td" style="vertical-align: top;">
+    @switch (Model.Status)
+    {
+        case DownloadDocumentStatus.New:
+            <partial name="/Views/Shared/_StatusNewTag.cshtml"/>
+            break;
+
+        case DownloadDocumentStatus.Downloaded:
+            <partial name="/Views/Shared/_StatusDownloadedTag.cshtml"/>
+            <br/>
+            @Model.DownloadedBy
+            <br/>
+            @if (Model.StatusDateTime.HasValue)
+            {
+                <text>@Model.DisplayStatusDateTime</text>
+            }
+            break;
+    }
+</td>

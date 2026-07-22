@@ -1,0 +1,66 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.SupportTools
+@using Pds.DocumentExchange.Web.Models.Agency
+@using Pds.DocumentExchange.Web.Models.Shared
+@model DeletePublishedDocumentAreYouSure
+
+@{
+    const string styleThatHides = "hidden";
+    var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+}
+
+
+<form method="post" class="form">
+
+    <div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+        <ul class="error-summary-list">
+            <li>
+                Select a published document to delete
+            </li>
+        </ul>
+    </div>
+
+    <partial name="/Views/Shared/_ContentTitle.cshtml" />
+
+    <input type="hidden" name="@nameof(DeletePublishedDocumentAreYouSure.SelectedDocument)" value="@Model.SelectedDocument" />
+
+    <div>
+        <p>The document will be permanently deleted.</p>
+    </div>
+    <div class="form-group">
+        <table>
+            <tr>
+                <partial name="/Views/Shared/TableData/_TableHeaderCell.cshtml" model='new TableHeaderCell { Value = "Document type", CssClasses = "table-header-width-one-half" }' />
+                <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ListItems.OfType<AgencyExchangeDocument>().FirstOrDefault()?.ProductName" />
+            </tr>
+            <tr>
+                <partial name="/Views/Shared/TableData/_TableHeaderCell.cshtml" model='new TableHeaderCell { Value = "Provider name", CssClasses = "table-header-width-one-half" }' />
+                <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ListItems.OfType<AgencyExchangeDocument>().FirstOrDefault()?.ProviderName" />
+            </tr>
+            <tr>
+                <partial name="/Views/Shared/TableData/_TableHeaderCell.cshtml" model='new TableHeaderCell { Value = "UKPRN", CssClasses = "table-header-width-one-half" }' />
+                <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ListItems.OfType<AgencyExchangeDocument>().FirstOrDefault()?.ProviderUkprn" />
+            </tr>
+            <tr>
+                <partial name="/Views/Shared/TableData/_TableHeaderCell.cshtml" model='new TableHeaderCell { Value = "Version", CssClasses = "table-header-width-one-half" }' />
+                <partial name="/Views/Shared/TableData/_TextCellHtml.cshtml" model="@Html.Raw(Model.ListItems.OfType<AgencyExchangeDocument>().FirstOrDefault()?.Versions)" />
+            </tr>
+        </table>
+    </div>
+    <div class="form-group">
+
+
+
+    </div>
+
+    <div style="display: inline-block">
+
+        <button type="submit" formaction="@Url.ActionLink(nameof(SupportToolsController.DeletePublishedDocument))"
+                class="delete-button" role="button" title="Delete" data-error-source="delete">
+            Delete
+        </button>
+
+        @Html.ActionLink("Cancel", nameof(SupportToolsController.SupportTools))
+    </div>
+</form>

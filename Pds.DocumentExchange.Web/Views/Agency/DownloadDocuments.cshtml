@@ -1,0 +1,67 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Agency
+@model DownloadDocuments
+
+@{
+    const string styleThatHides = "hidden";
+    var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+    var downloadMsgVisible = Model.ErrorAction != null && Model.ErrorAction.Equals(nameof(AgencyController.DownloadExchangeDocumentList)) ? string.Empty : styleThatHides;
+    var deleteMsgVisible = Model.ErrorAction != null && Model.ErrorAction.Equals(nameof(AgencyController.DeleteDocumentsAreYouSure)) ? string.Empty : styleThatHides;
+}
+
+<div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+    <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+    <ul class="error-summary-list">
+        <li>
+            <a href="#document-list">
+                <span class="download @downloadMsgVisible">Select the documents that you want to download</span>
+                @if (Model.UserIsAdvancedAgencyUser)
+                {
+                    <span class="delete @deleteMsgVisible">Select the documents that you want to delete</span>
+                }
+            </a>
+        </li>
+    </ul>
+</div>
+
+@if (Model.AnyDocumentsAvailable)
+{
+    <form method="post" class="form" id="refreshable-data">
+        <partial name="~/Areas/Lists/Views/_Options.cshtml" />
+        <partial name="~/Areas/Lists/Views/_FilterResultsUpdatedAlert.cshtml" />
+
+        <partial name="/Views/Shared/_ContentTitle.cshtml" />
+
+        <div class="grid-row">
+            <div class="column-full">
+                <h3 class="heading-medium">Downloading documents</h3>
+                <p>You can download all the latest versions of filtered documents by using the 'Download all filtered documents' button at the top of the list.</p>
+                <p>You can select individual documents using the check boxes and download them using the 'Download selected documents' button at the bottom of the list.</p>
+            </div>
+
+            @if (Model.UserIsAdvancedAgencyUser)
+            {
+                <div class="column-full">
+                    <h3 class="heading-medium">Deleting documents</h3>
+                    <p>Deleting using the check boxes and the button at the bottom of the list will delete all versions of the document.</p>
+                </div>
+            }
+
+        </div>
+
+        <partial name="~/Areas/Lists/Views/_NumberOfSelectedItems.cshtml" />
+        <partial name="~/Areas/Lists/Views/_Filters.cshtml" />
+
+        <div class="column-two-thirds document-list">
+            <partial name="~/Areas/Lists/Views/_List.cshtml" />
+        </div>
+    </form>
+
+    <script src="~/Scripts/Organisation/MultipleChoiceActionForm.js" defer></script>
+    <script src="~/_content/Pds.Core.Web.Components/js/lists.mustache.min.js" defer></script>
+}
+else
+{
+    <partial name="/Views/Shared/_ContentTitle.cshtml" />
+    <partial name="@Model.NoDocumentsPartialName" />
+}

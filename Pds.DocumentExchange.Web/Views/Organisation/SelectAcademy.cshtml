@@ -1,0 +1,94 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Organisation
+@using Pds.DocumentExchange.Web.Models.Shared
+@model SelectAcademy
+
+@{
+    var pages = Model.ChildAcademyPages.ToList();
+    var totalAcademies = pages.Sum(p => p.Count());
+
+    const string styleThatHides = "hidden";
+    const string errorMessage = "Select the academy you want to send a document for";
+    var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+    var formErrorVisibilityClass = Model.Error ? "form-group-error" : string.Empty;
+    var fieldsetErrorVisibilityClass = Model.Error ? "after-error-summary" : string.Empty;
+}
+<div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+    <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+    <ul class="error-summary-list">
+        <li><a href="#academyOrSchool">@errorMessage</a></li>
+    </ul>
+</div>
+<form action="" method="post">
+    <fieldset class="@fieldsetErrorVisibilityClass">
+        <h1 class="heading-xlarge">@Model.ContentTitle</h1>
+        <legend id="academyOrSchool" class="visuallyhidden">Search for an academy in the @Model.CurrentUser.ProviderName</legend>
+        <div style="margin-bottom: 1em;" class="search-field search-field-darker" data-checkbox-search-filter>
+            <div class="search-input search-input-with-button">
+                <label class="form-label" for="searchAcademies">Search for an academy in the @Model.CurrentUser.ProviderName</label>
+                <input autocomplete="off" class="form-control" id="searchAcademies" type="text"
+                       name="@nameof(SelectAcademy.SearchTerm)" value="@Model.SearchTerm" />
+            </div>
+            <div class="search-submit">
+                @Html.HiddenFor(model => model.SelectChildAcademy)
+                <button class="button" type="submit" id="searchAcademiesSubmit"
+                        name="@nameof(Model.NewSearch)" value="true">
+                    Search for an academy in the @Model.CurrentUser.ProviderName
+                </button>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group">
+        <button class="button-secondary@(string.IsNullOrWhiteSpace(Model.SearchTerm) ? " hidden" : string.Empty)"
+                type="submit" id="clearSearch" name="@nameof(Model.ClearSearch)" value="true">
+            Clear search
+        </button>
+    </div>
+</form>
+
+<h2 id="selectedChoiceHeading" class="heading-medium hidden">0 academies selected</h2>
+<p id="totalAcademiesMessage">@totalAcademies academies</p>
+
+<form method="post" action="@Url.ActionLink(nameof(OrganisationController.SelectDocumentType))">
+    <fieldset>
+        <legend class="visuallyhidden">@Model.ContentTitle</legend>
+
+        <div class="form-group @formErrorVisibilityClass">
+            <span class="error-message @errorVisibilityClass">@errorMessage</span>
+            @{
+                var itemCounter = 1;
+                var pageCounter = 1;
+                var selectedPage = Model.PageNumber.GetValueOrDefault(1);
+
+                foreach (var page in pages)
+                {
+                    foreach (var academy in page)
+                    {
+                        <div class="searchable-radio multiple-choice@(selectedPage == pageCounter ? string.Empty : " hidden")">
+                            <input id="radio-@itemCounter"
+                                   name="@nameof(SendYourDocument.UploadingForUkprn)" type="radio"
+                                   class="single-choice-action-form-option"
+                                   data-search-value="@academy.ToString()" value="@academy.Ukprn">
+                            <label for="radio-@itemCounter">@academy.ToString()</label>
+                        </div>
+                        itemCounter++;
+                    }
+                    pageCounter++;
+                }
+                <input type="hidden" name="@nameof(SendYourDocument.SelectAnOrganisationRequired)" value="true" />
+            }
+        </div>
+
+        <div class="form-group">
+            <partial name="_AcademyPagination.cshtml" for="Pagination" />
+        </div>
+
+        <div class="form-group">
+            <input class="button" type="submit" value="Continue">
+        </div>
+        <partial name="/Views/Shared/_BackToTopLink.cshtml" />
+    </fieldset>
+</form>
+<script src="~/Scripts/Organisation/SelectAcademy.js" defer></script>
+<script src="~/Scripts/Organisation/SingleChoiceActionForm.js" defer></script>

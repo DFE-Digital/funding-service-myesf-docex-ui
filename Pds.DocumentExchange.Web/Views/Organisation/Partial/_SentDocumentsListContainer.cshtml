@@ -1,0 +1,21 @@
+﻿@using Pds.DocumentExchange.Web.Models.Organisation
+@model SentDocuments
+
+<div>
+    <fieldset>
+        <legend id="document-list" class="visuallyhidden">
+            @Model.TableCaption
+        </legend>
+
+        <partial name="~/Areas/Lists/Views/_FilterResultsAlert.cshtml" />
+        <table data-checkboxes>
+            <caption class="visuallyhidden">@Model.TableCaption</caption>
+            <partial name="@Model.TableHeaderPartialName" />
+            <tbody id="list-items-container">
+                <partial name="~/Areas/Lists/Views/_Items.cshtml" />
+            </tbody>
+        </table>
+    </fieldset>
+    <partial name="~/Areas/Lists/Views/_Pagination.cshtml" />
+    <partial name="/Views/Shared/_BackToTopLink.cshtml" />
+</div>

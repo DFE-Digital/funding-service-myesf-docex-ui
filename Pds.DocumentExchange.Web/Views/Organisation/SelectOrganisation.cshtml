@@ -1,0 +1,48 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+@using Pds.DocumentExchange.Web.Models.Organisation
+@model SelectOrganisation
+
+@{
+    const string styleThatHides = "hidden";
+    const string errorMessage = "Select the organisation you want to send a document for";
+    var errorVisibilityClass = Model.Error ? string.Empty : styleThatHides;
+    var formErrorVisibilityClass = Model.Error ? "form-group-error" : string.Empty;
+    var fieldsetErrorVisibilityClass = Model.Error ? "after-error-summary" : string.Empty;
+}
+
+<div class="error-summary @errorVisibilityClass" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+    <h2 class="heading-medium error-summary-heading" id="error-summary-heading">There is a problem</h2>
+    <ul class="error-summary-list">
+        <li><a href="#organisation">@errorMessage</a></li>
+    </ul>
+</div>
+<form method="post" class="form" action="@Url.ActionLink(nameof(OrganisationController.SelectAcademy))">
+    <fieldset class="@fieldsetErrorVisibilityClass">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl" id="organisation">
+            <h1 class="heading-xlarge">@Model.ContentTitle</h1>
+        </legend>
+
+        <div class="form-group  @formErrorVisibilityClass">
+            <span class="error-message @errorVisibilityClass">@errorMessage</span>
+            <div class="multiple-choice">
+                <input id="radio-1" type="radio"
+                       class="single-choice-action-form-option"
+                       name="@nameof(SelectAcademy.SelectChildAcademy)" value="false"
+                       data-action="@Url.ActionLink(nameof(OrganisationController.SelectDocumentType))">
+                <label for="radio-1">@Model.CurrentUser.ProviderName</label>
+            </div>
+            <div class="multiple-choice">
+                <input id="radio-2" type="radio"
+                       class="single-choice-action-form-option"
+                       name="@nameof(SelectAcademy.SelectChildAcademy)" value="true"
+                       data-action="@Url.ActionLink(nameof(OrganisationController.SelectAcademy))">
+                <label for="radio-2">A specific academy</label>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group">
+        <button class="button">Continue</button>
+    </div>
+</form>
+<script src="~/Scripts/Organisation/SingleChoiceActionForm.js" defer></script>

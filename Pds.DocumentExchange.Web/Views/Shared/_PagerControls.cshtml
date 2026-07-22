@@ -1,0 +1,42 @@
+﻿@using Pds.DocumentExchange.Web.Helpers
+@model Pds.DocumentExchange.Web.Models.Shared.Pagination
+
+@if (Model.TotalPages > 1)
+{
+    <div class="pager-controls">
+        @Html.RouteLink(
+                "Previous",
+                Model.BuildPageLinkRouteValues(Model.VisiblePageNumber - 1),
+                new
+                {
+                    @class = "pager-prev" + (Model.ShowPrevious ? string.Empty : " hidden"),
+                    data_page = Model.VisiblePageNumber - 1
+                })
+        <ul class="pager-items">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li>
+                    @if (Model.VisiblePageNumber != i)
+                    {
+                        @Html.RouteLink(
+                         i.ToString(),
+                         Model.BuildPageLinkRouteValues(i),
+                         new { @class = "go-to-page", data_page = i })
+                    }
+                    else
+                    {
+                        @i
+                    }
+                </li>
+            }
+        </ul>
+        @Html.RouteLink(
+                "Next",
+                Model.BuildPageLinkRouteValues(Model.VisiblePageNumber + 1),
+                new
+                {
+                    @class = "pager-next" + (Model.ShowNext ? string.Empty : " hidden"),
+                    data_page = Model.VisiblePageNumber + 1
+                })
+    </div>
+}

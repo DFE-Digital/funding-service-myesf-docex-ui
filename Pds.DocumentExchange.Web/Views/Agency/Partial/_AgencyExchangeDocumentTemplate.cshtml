@@ -1,0 +1,23 @@
+﻿<tr>
+    <partial name="/Views/Shared/TableData/_ExchangeDocumentSelectionCellTemplate.cshtml" />
+    <td class="sortable-td" style="vertical-align: top;">
+        {{productName}}
+    </td>
+    <td class="sortable-td" style="vertical-align: top;">
+        {{providerName}}
+    </td>
+    <td class="sortable-td" style="vertical-align: top;">
+        {{providerUkprn}}
+    </td>
+    <td class="sortable-td" style="vertical-align: top;">
+        {{displayUploadedDateTime}}
+        {{#isNew}}
+        <br />
+        <partial name="/Views/Shared/_StatusNewTag.cshtml" />
+        {{/isNew}}
+        <partial name="/Views/Agency/Partial/TableData/_DocumentDetailsBlockTemplate.cshtml" />
+    </td>
+</tr>
+
+
+

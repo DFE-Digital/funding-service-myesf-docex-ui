@@ -1,0 +1,18 @@
+﻿@using Pds.DocumentExchange.Web.Areas.Admin.Models
+@using Pds.DocumentExchange.Web.Areas.Admin.Controllers
+@using Pds.DocumentExchange.Web.Areas.Admin.DTOs
+@model Product
+
+@{
+    var canOrganisationUpload = Model.CanOrganisationsUpload ? "Yes" : "No";
+}
+
+<tr>
+    <td>@(Model.LastUpdated?.ToString("dd/MM/yyyy") ?? "--")</td>
+    <td>@Model.Identifier</td>
+    <td>@Model.Name</td>
+    <td>@Model.PluralName</td>
+    <td>@Model.AgencyTeam</td>
+    <td>@canOrganisationUpload</td>
+    <td><a href="@Url.ActionLink(nameof(SettingsController.EditProduct), values: new ConfirmAddEditProductPageDto { Identifier = Model.Identifier })">Edit</a></td>
+</tr>

@@ -1,0 +1,24 @@
+﻿@model Pds.DocumentExchange.Web.Models.DocumentExchange.AccountSettings
+
+<h2 class="heading-medium">Your account settings</h2>
+<p>Through the DfE Sign-in you can:</p>
+<ul class="list list-bullet">
+    <li>update your contact information</li>
+    <li>change your password</li>
+    <li>change your email address</li>
+    <li>connect to an organisation</li>
+</ul>
+
+<h2 class="heading-medium">Users</h2>
+<p>You can manage the users in your organisation through DfE Sign-in.</p>
+
+<h2 class="heading-medium">Permissions</h2>
+<p>Your permissions allow you to:</p>
+<ul class="list list-bullet">
+    @foreach (var permission in Model.Permissions)
+    {
+        <li>
+            @permission
+        </li>
+    }
+</ul>

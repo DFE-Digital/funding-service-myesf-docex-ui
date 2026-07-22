@@ -1,0 +1,12 @@
+﻿@model Pds.DocumentExchange.Web.Models.Agency.AgencyHome
+
+<section>
+    <div class="grid-row">
+        <ul>
+            @foreach(var tile in Model.Tiles)
+            {
+                <partial name="Partial/_DashboardTile.cshtml" model="@tile" />
+            }
+        </ul>
+    </div>
+</section>

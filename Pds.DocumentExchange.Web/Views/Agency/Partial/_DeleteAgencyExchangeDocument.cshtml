@@ -1,0 +1,11 @@
+﻿@model Pds.DocumentExchange.Web.Models.Agency.AgencyExchangeDocument
+
+<tr>
+    <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ProductName" />
+    <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ProviderName" />
+    <partial name="/Views/Shared/TableData/_TextCell.cshtml" model="@Model.ProviderUkprn" />
+    <td class="sortable-td" style="vertical-align: top;">
+        @Model.DisplayUploadedDateTime
+        <partial name="/Views/Agency/Partial/TableData/_DocumentDetailsBlock.cshtml" />
+    </td>
+</tr>

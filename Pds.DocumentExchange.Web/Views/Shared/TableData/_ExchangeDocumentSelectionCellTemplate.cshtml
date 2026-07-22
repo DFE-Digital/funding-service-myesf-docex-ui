@@ -1,0 +1,8 @@
+﻿@using Pds.DocumentExchange.Web.DTOs
+
+<td class="document-checkbox-td sortable-td">
+    <div class="document-checkbox-div multiple-choice">
+        <input id="checkbox-file-{{positionInRenderedList}}" name="@nameof(IDocumentReferenceList.DocumentReferences)" type="checkbox" value="{{id}}" class="multiple-choice-action-form-option">
+        <label for="checkbox-file-{{positionInRenderedList}}"><span class="visuallyhidden">Select {{fileName}}</span></label>
+    </div>
+</td>

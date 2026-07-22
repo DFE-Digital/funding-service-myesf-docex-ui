@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904;S1135</WarningsNotAsErrors>
+    <UserSecretsId>718c842b-35cb-4ff6-904e-f740c406ab37</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <!-- Suppress warnings about conflicts with the imported types from the Pds.Core.Web package (_ViewStart and _ViewImports) -->
+  <Target Name="NoWarnOnRazorViewImportedTypeConflicts" BeforeTargets="RazorCoreCompile">
+    <PropertyGroup>
+      <NoWarn>$(NoWarn);0436</NoWarn>
+    </PropertyGroup>
+  </Target>
+
+  <ItemGroup>
+    <None Remove="Pds.DocumentExchange.Web.csproj.transform" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
+    <PackageReference Include="Pds.Core.CodeAnalysis.StyleCop" Version="2.0.0" />
+    <PackageReference Include="Pds.Core.Logging" Version="3.0.0" />
+    <PackageReference Include="Pds.Core.SecurityAssurance" Version="2.1.0" />
+    <PackageReference Include="Pds.Core.Telemetry.ApplicationInsights" Version="3.0.0" />
+    <PackageReference Include="Pds.Core.Utils" Version="3.0.0" />
+    <PackageReference Include="Pds.Core.Web" Version="5.0.14" />
+    <PackageReference Include="Pds.Core.Web.Administration" Version="2.0.7" />
+    <PackageReference Include="Pds.Core.Web.Components" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pds.DocumentExchange.Services\Pds.DocumentExchange.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+</Project>

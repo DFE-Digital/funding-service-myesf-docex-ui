@@ -1,0 +1,112 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+
+<div>
+    <details role="group">
+        <summary role="button" aria-controls="details-content-{{positionInRenderedList}}" aria-expanded="false">
+            <span class="summary">Document details</span>
+        </summary>
+        <div class="panel panel-border-narrow" id="details-content-{{positionInRenderedList}}" aria-hidden="true">
+            <p>
+                <strong class="bold-small">Document name:</strong>
+                <br />
+                {{{displayFileName}}}
+            </p>
+            <div>
+                <details role="group">
+                    <summary role="button" aria-controls="versions-content-{{positionInRenderedList}}" aria-expanded="false">
+                        <span class="summary">Versions</span>
+                    </summary>
+                    <div class="panel panel-border-narrow" id="versions-content-{{positionInRenderedList}}" aria-hidden="true">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Versions
+                                    </th>
+                                    <th>
+                                        Downloaded at
+                                    </th>
+                                    <th>
+                                        Downloaded by
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {{#isDeleted}}
+                                        {{versionNumber}}
+                                        {{/isDeleted}}
+
+                                        {{^isDeleted}}                                        
+                                        {{{versionWithHyperlink}}}
+                                        {{/isDeleted}}
+                                    </td>
+                                    <td>
+                                        {{^isNew}}
+                                        <p>
+                                            {{displayStatusDateTime}}
+                                        </p>                                       
+                                        {{/isNew}}
+                                       
+                                        {{#isNew}}
+                                            <p>Not applicable</p>
+                                        {{/isNew}}
+                                    </td>
+                                    <td>
+                                        {{^isNew}}                                       
+                                        <p>                                           
+                                            {{downloadedBy}}
+                                        </p>
+                                        {{/isNew}}
+
+                                        {{#isNew}}
+                                        <p>Not applicable</p>
+                                        {{/isNew}}
+                                    </td>
+                                </tr>
+                                {{#previousVersions.length}}
+                                {{#previousVersions}}
+                                    <tr>
+                                    <td>
+                                        {{#isDeleted}}
+                                        {{versionNumber}}
+                                        {{/isDeleted}}
+
+                                        {{^isDeleted}}
+                                        {{{versionWithHyperlink}}}
+                                        {{/isDeleted}}
+                                    </td>
+                                    <td>
+                                        {{^isNew}}
+                                        <p>
+                                            {{displayStatusDateTime}}
+                                        </p>
+                                        {{/isNew}}
+
+                                        {{#isNew}}
+                                        <p>Not applicable</p>
+                                        {{/isNew}}
+                                    </td>
+                                    <td>
+                                        {{^isNew}}
+                                        <p>
+                                            {{downloadedBy}}
+                                        </p>
+                                        {{/isNew}}
+
+                                        {{#isNew}}
+                                        <p>Not applicable</p>
+                                        {{/isNew}}
+                                    </td>
+                                    </tr>
+                                {{/previousVersions}}
+                                {{/previousVersions.length}}
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </details>
+</div>

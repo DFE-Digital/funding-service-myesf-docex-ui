@@ -1,0 +1,6 @@
+﻿@using Pds.DocumentExchange.Web.Controllers
+
+<a href="@(Url.ActionLink(nameof(AgencyController.DownloadExchangeDocument)) + "?documentReferenceString={{id}}")"
+   title="Download {{fileName}} {{displayFileExtensionNote}}">
+    {{{displayFileName}}}
+</a>
