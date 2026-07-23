@@ -92,7 +92,7 @@ stages:
       name: downloadAsposeLicense
       displayName: 'Download Aspose License'
       inputs:
-        secureFile: AsposeTotalLicense
+        secureFile: Aspose.Total.lic
     # Step 2 - Copy the Aspose License to the destination
     - task: PowerShell@2
       name: copyAsposeLicense
@@ -156,7 +156,7 @@ stages:
       name: downloadAsposeLicense
       displayName: 'Download Aspose License'
       inputs:
-        secureFile: AsposeTotalLicense
+        secureFile: Aspose.Total.lic
     # Step 2 - Copy the Aspose License to the destination
     - task: PowerShell@2
       name: copyAsposeLicense
@@ -207,7 +207,7 @@ stages:
       name: downloadAsposeLicense
       displayName: 'Download Aspose License'
       inputs:
-        secureFile: AsposeTotalLicense
+        secureFile: Aspose.Total.lic
     # Step 2 - Copy the Aspose License to the destination
     - task: PowerShell@2
       name: copyAsposeLicense
@@ -279,7 +279,7 @@ stages:
       name: downloadAsposeLicense
       displayName: 'Download Aspose License'
       inputs:
-        secureFile: AsposeTotalLicense
+        secureFile: Aspose.Total.lic
     # Step 2 - Copy the Aspose License to the destination
     - task: PowerShell@2
       name: copyAsposeLicense
