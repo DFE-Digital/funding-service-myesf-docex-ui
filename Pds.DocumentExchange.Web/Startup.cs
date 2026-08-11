@@ -15,13 +15,17 @@ using Pds.Core.Telemetry.ApplicationInsights;
 using Pds.Core.Utils;
 using Pds.Core.Web.Areas.ErrorPages.Builders;
 using Pds.Core.Web.Areas.ErrorPages.Registration;
+using Pds.Core.Web.Components.Areas.Lists.Models;
 using Pds.Core.Web.Components.Areas.Lists.Registration;
+using Pds.Core.Web.Models;
 using Pds.DocumentExchange.Services.DependencyInjection;
+using Pds.DocumentExchange.Services.Models.Filters;
 using Pds.DocumentExchange.Web.Areas.Admin.Implementations;
 using Pds.DocumentExchange.Web.Areas.Admin.Interfaces;
 using Pds.DocumentExchange.Web.Areas.ErrorPages.Builders;
 using Pds.DocumentExchange.Web.Authentication.Implementations;
 using Pds.DocumentExchange.Web.Authentication.Interfaces;
+using Pds.DocumentExchange.Web.Extensions;
 using Pds.DocumentExchange.Web.Helpers;
 using Pds.DocumentExchange.Web.Implementations.Converters;
 using Pds.DocumentExchange.Web.Implementations.Coordinators;
@@ -75,6 +79,7 @@ namespace Pds.DocumentExchange.Web
             AddAuthentication(services);
             AddCoordinators(services);
             AddConverters(services);
+            AddMapper(services);
             AddHelpers(services);
             AddRenderers(services);
 
@@ -92,7 +97,6 @@ namespace Pds.DocumentExchange.Web
 
                 // TODO: Replace AutoMapper with free alternative.
                 // TODO: After we replace AutoMapper, remove WarningsNotAsErrors NU1901,NU1902,NU1903,NU1904 from .csproj files
-                .AddAutoMapper(typeof(Startup))
                 .AddPdsErrorPages(false)
                 .AddSingleton<IErrorViewModelBuilder, ErrorViewModelBuilder>()
                 .AddSingleton<IDateTimeDisplayHelper, DateTimeDisplayHelper>()
@@ -160,6 +164,12 @@ namespace Pds.DocumentExchange.Web
         {
             services
                 .AddSingleton<IDocumentModelConverter, DocumentModelConverter>();
+        }
+
+        private void AddMapper(IServiceCollection services)
+        {
+            services
+                .AddSingleton<IMapper, Mapper>();
         }
 
         private void AddHelpers(IServiceCollection services)

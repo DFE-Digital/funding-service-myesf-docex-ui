@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿//using AutoMapper;
 using Pds.Core.Common.Identity.Models;
 using Pds.Core.Common.Organisation.Models;
 using Pds.Core.Identity.Claims.Interfaces;
@@ -7,7 +7,9 @@ using Pds.DocumentExchange.Services.Interfaces;
 using Pds.DocumentExchange.Services.Models;
 using Pds.DocumentExchange.Web.Attributes;
 using Pds.DocumentExchange.Web.Enums;
+using Pds.DocumentExchange.Web.Extensions;
 using Pds.DocumentExchange.Web.Helpers;
+using Pds.DocumentExchange.Web.Interfaces.Helpers;
 using Pds.DocumentExchange.Web.Interfaces.Providers;
 using System;
 using System.Collections.Generic;
@@ -55,11 +57,17 @@ namespace Pds.DocumentExchange.Web.Implementations.Providers
 
         /// <inheritdoc/>
         public async Task<UserInfo> GetCurrentUserInfo()
-            => await Task.Run(() => _mapper.Map<UserInfo>(_currentUser));
+
+            //=> await Task.Run(() => _mapper.Map<UserInfo>(_currentUser));
+            //=> await Task.Run(() => _currentUser.ToUserInfo());
+            => await Task.Run(() => _mapper.ToUserInfo(_currentUser));
 
         /// <inheritdoc/>
         public async Task<CurrentUserViewModel> GetCurrentUserViewModel()
-            => await Task.Run(() => _mapper.Map<CurrentUserViewModel>(_currentUser));
+
+            //=> await Task.Run(() => _mapper.Map<CurrentUserViewModel>(_currentUser));
+            //=> await Task.Run(() => _currentUser.ToCurrentUserViewModel());
+            => await Task.Run(() => _mapper.ToCurrentUserViewModel(_currentUser));
 
         /// <inheritdoc />
         public async Task<bool> CurrentUserCanAccessDocumentExchange()

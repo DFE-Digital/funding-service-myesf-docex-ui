@@ -11,6 +11,7 @@ using Pds.DocumentExchange.Services.Interfaces;
 using Pds.DocumentExchange.Services.Models;
 using Pds.DocumentExchange.Web.Controllers;
 using Pds.DocumentExchange.Web.DTOs;
+using Pds.DocumentExchange.Web.Extensions;
 using Pds.DocumentExchange.Web.Interfaces.Coordinators;
 using Pds.DocumentExchange.Web.Models;
 using Pds.DocumentExchange.Web.Models.Agency;
@@ -921,10 +922,9 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
                 Name = productName
             };
 
-            Mock.Get(Mapper)
-                .Setup(mapper => mapper.Map<Models.Shared.Product>(product))
-                .Returns(mappedProduct);
-
+            //Mock.Get(Mapper)
+            //    .Setup(mapper => mapper.Map<Models.Shared.Product>(product))
+            //    .Returns(mappedProduct);
             var controller = GetAgencyController();
 
             // Act
@@ -938,7 +938,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
                 .Which;
 
             actualViewModel.Count.Should().Be(count);
-            actualViewModel.Product.Should().Be(mappedProduct);
+            actualViewModel.Product.Should().BeEquivalentTo(mappedProduct);
             actualViewModel.Should().BeEquivalentTo(viewModel);
 
             Mock.VerifyAll(

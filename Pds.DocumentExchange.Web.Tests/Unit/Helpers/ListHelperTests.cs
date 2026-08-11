@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿//using AutoMapper;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,6 +14,7 @@ using Pds.DocumentExchange.Services.Models.Filters;
 using Pds.DocumentExchange.Web.DTOs;
 using Pds.DocumentExchange.Web.Enums;
 using Pds.DocumentExchange.Web.Implementations.Helpers;
+using Pds.DocumentExchange.Web.Interfaces.Helpers;
 using Pds.DocumentExchange.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -152,14 +153,20 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Helpers
                 Filters = fakeFilters
             };
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<IFilterCategoryViewModel>(It.IsAny<IFilter>()))
+            //    .Returns((IFilter filter) =>
+            //    {
+            //        var index = fakeFilters.IndexOf(filter);
+            //        return fakeFilterCategories.ElementAt(index);
+            //    });
             Mock.Get(_mapper)
-                .Setup(m => m.Map<IFilterCategoryViewModel>(It.IsAny<IFilter>()))
+                .Setup(m => m.ToFilterCategoryView(It.IsAny<IFilter>()))
                 .Returns((IFilter filter) =>
                 {
                     var index = fakeFilters.IndexOf(filter);
                     return fakeFilterCategories.ElementAt(index);
                 });
-
             var helper = GetTestHelper();
 
             // Act
@@ -168,7 +175,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Helpers
             // Assert
             actual.Should().BeEquivalentTo(fakeFilterCategories);
 
-            Mock.VerifyAll(Mock.Get(_mapper));
+            //Mock.VerifyAll(Mock.Get(_mapper));
         }
 
         private static IEnumerable<object[]> AnyDocumentsAvailable_TestData

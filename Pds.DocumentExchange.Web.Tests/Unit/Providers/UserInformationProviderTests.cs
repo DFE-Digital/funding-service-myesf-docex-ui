@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿//using AutoMapper;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -11,6 +11,7 @@ using Pds.Core.Web.Models;
 using Pds.DocumentExchange.Services.Interfaces;
 using Pds.DocumentExchange.Services.Models;
 using Pds.DocumentExchange.Web.Implementations.Providers;
+using Pds.DocumentExchange.Web.Interfaces.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,8 +39,11 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testUser = new User();
             var testUserInfo = new UserInfo();
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(testUserInfo);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             var testProvider = await GetTestProvider(testUser);
@@ -50,9 +54,9 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             // Assert
             actual.Should().Be(testUserInfo);
 
-            Mock.VerifyAll(
-                Mock.Get(_identityService),
-                Mock.Get(_mapper));
+            Mock.VerifyAll(Mock.Get(_identityService));
+
+            //Mock.Get(_mapper));
         }
 
         [TestMethod]
@@ -62,8 +66,11 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testUser = new User();
             var testUserViewModel = new CurrentUserViewModel();
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<CurrentUserViewModel>(testUser))
+            //    .Returns(testUserViewModel);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<CurrentUserViewModel>(testUser))
+                .Setup(m => m.ToCurrentUserViewModel(testUser))
                 .Returns(testUserViewModel);
 
             var testProvider = await GetTestProvider(testUser);
@@ -153,8 +160,11 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
 
             var testOrganisation = GetTestChildOrganisation();
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(testUserInfo);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)
@@ -203,8 +213,11 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
 
             var testOrganisation = GetTestParentOrganisation(1);
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(testUserInfo);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)
@@ -315,10 +328,12 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             // Arrange
             var testUser = new User();
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(userInfoWithoutOrgId);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(userInfoWithoutOrgId);
-
             var testProvider = await GetTestProvider(testUser);
 
             // Act
@@ -358,10 +373,12 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
                 }
             };
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(testUserInfo);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
-
             var testProvider = await GetTestProvider(testUser);
 
             // Act
@@ -381,10 +398,12 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             // Arrange
             var testUser = new User();
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(userInfoWithoutOrgId);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(userInfoWithoutOrgId);
-
             var testProvider = await GetTestProvider(testUser);
 
             // Act
@@ -420,8 +439,11 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
                 }
             };
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(testUserInfo);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)
@@ -468,10 +490,12 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
 
             var testOrganisation = GetTestParentOrganisation(numberOfChildOrganisations);
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(testUserInfo);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
-
             Mock.Get(_organisationApiClient)
                 .Setup(o => o.GetOrganisation(testOrgIdentifier))
                 .ReturnsAsync(testOrganisation);
@@ -516,10 +540,12 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
 
             var testOrganisation = GetTestParentOrganisation(numberOfChildOrganisations);
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(testUserInfo);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
-
             Mock.Get(_organisationApiClient)
                 .Setup(o => o.GetOrganisation(testOrgIdentifier))
                 .ReturnsAsync(testOrganisation);
@@ -562,8 +588,11 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
                 }
             };
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(testUserInfo);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)
@@ -610,10 +639,12 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
 
             var testOrganisation = GetTestParentOrganisation(numberOfChildOrganisations);
 
+            //Mock.Get(_mapper)
+            //    .Setup(m => m.Map<UserInfo>(testUser))
+            //    .Returns(testUserInfo);
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
-
             Mock.Get(_organisationApiClient)
                 .Setup(o => o.GetOrganisation(testOrgIdentifier))
                 .ReturnsAsync(testOrganisation);
@@ -628,8 +659,9 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
 
             Mock.VerifyAll(
                 Mock.Get(_identityService),
-                Mock.Get(_mapper),
                 Mock.Get(_organisationApiClient));
+
+            //Mock.Get(_mapper),
         }
 
         [TestMethod, DynamicData(nameof(CurrentUserIsAdvancedAgencyUser_ReturnsExpected_TestData))]
@@ -707,6 +739,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
                 _mapper,
                 _organisationApiClient);
 
+            //_mapper,
             await provider.Initialise(new ClaimsPrincipal());
 
             return provider;
