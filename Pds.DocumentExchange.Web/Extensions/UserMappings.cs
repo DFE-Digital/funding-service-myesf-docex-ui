@@ -34,12 +34,11 @@ namespace Pds.DocumentExchange.Web.Extensions
                     {
                         Value = source.Ukprn != null ? source.Ukprn.ToString() : null,
                         Type = OrganisationIdentifierType.Ukprn
-                    },
-
-                    //Name = source.ProviderName ?? null
+                    }
                 },
                 IsViewAsOrganisation = !source.IsExternalUser && source.Ukprn.HasValue
             };
+
             return destinationUserInfo;
         }
 
