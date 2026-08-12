@@ -1,5 +1,4 @@
-﻿//using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Pds.Core.Utils;
@@ -11,7 +10,6 @@ using Pds.DocumentExchange.Web.Areas.Admin.Controllers;
 using Pds.DocumentExchange.Web.Attributes.BreadCrumbs.Agency;
 using Pds.DocumentExchange.Web.Attributes.BreadCrumbs.Shared;
 using Pds.DocumentExchange.Web.DTOs;
-using Pds.DocumentExchange.Web.Extensions;
 using Pds.DocumentExchange.Web.Helpers;
 using Pds.DocumentExchange.Web.Interfaces.Coordinators;
 using Pds.DocumentExchange.Web.Interfaces.Helpers;
@@ -368,8 +366,7 @@ namespace Pds.DocumentExchange.Web.Controllers
                     UserInfo = await UserInformationProvider.GetCurrentUserInfo()
                 });
 
-            //actionData.Product = _mapper.Map<Models.Shared.Product>(product);
-            actionData.Product = product.ToWebProduct();
+            actionData.Product = _mapper.ToWebProduct(product);
             actionData.Count = count;
 
             return View(actionData);
