@@ -94,9 +94,6 @@ namespace Pds.DocumentExchange.Web
                 .AddPdsUtils()
                 .Configure<DocumentExchangeConfiguration>(options => Configuration.Bind("DocumentExchangeWeb", options))
                 .AddWebControllers()
-
-                // TODO: Replace AutoMapper with free alternative.
-                // TODO: After we replace AutoMapper, remove WarningsNotAsErrors NU1901,NU1902,NU1903,NU1904 from .csproj files
                 .AddPdsErrorPages(false)
                 .AddSingleton<IErrorViewModelBuilder, ErrorViewModelBuilder>()
                 .AddSingleton<IDateTimeDisplayHelper, DateTimeDisplayHelper>()

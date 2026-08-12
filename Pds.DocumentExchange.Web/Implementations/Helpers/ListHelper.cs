@@ -1,5 +1,4 @@
-﻿//using AutoMapper;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Pds.Core.Utils;
 using Pds.Core.Web.Components.Areas.Lists.Builders;
 using Pds.Core.Web.Components.Areas.Lists.DTOs;
@@ -9,7 +8,6 @@ using Pds.DocumentExchange.Services.Models;
 using Pds.DocumentExchange.Services.Models.Filters;
 using Pds.DocumentExchange.Web.DTOs;
 using Pds.DocumentExchange.Web.Enums;
-using Pds.DocumentExchange.Web.Extensions;
 using Pds.DocumentExchange.Web.Interfaces.Helpers;
 using Pds.DocumentExchange.Web.Models;
 using System.Collections.Generic;
@@ -143,10 +141,6 @@ namespace Pds.DocumentExchange.Web.Implementations.Helpers
         /// <inheritdoc/>
         public IEnumerable<IFilterCategoryViewModel> GetFilterCategories<T>(ListResult<T> listResult)
         {
-            //return listResult.Filters.Select(
-            //   filter => _mapper.Map<IFilterCategoryViewModel>(filter));
-            //return listResult.Filters.Select(
-            //   filter => filter.ToFilterCategoryView());
             return listResult.Filters.Select(
                filter => _mapper.ToFilterCategoryView(filter));
         }

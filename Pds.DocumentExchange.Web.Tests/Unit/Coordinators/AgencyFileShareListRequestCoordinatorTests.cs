@@ -1,6 +1,4 @@
-﻿//using AutoMapper;
-using Aspose.Cells;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -17,7 +15,6 @@ using Pds.DocumentExchange.Web.Interfaces.Helpers;
 using Pds.DocumentExchange.Web.Interfaces.Providers;
 using Pds.DocumentExchange.Web.Models;
 using Pds.DocumentExchange.Web.Models.Agency;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,9 +40,6 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Coordinators
 
         private readonly IListHelper _listHelper
             = Mock.Of<IListHelper>(MockBehavior.Strict);
-
-        private IMapper _mapper
-            = Mock.Of<IMapper>(MockBehavior.Strict);
 
         [TestMethod, DynamicData(nameof(GetDocuments_TestData))]
         public async Task GetDocumentsToPublish_ReturnsExpected(ListRequest request, int numberOfDocuments)
@@ -86,12 +80,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Coordinators
                 })
                 .ToList();
 
-            //var fakeProduct = new Models.Shared.Product
-            //{
-            //    Name = "test product name",
-            //    Identifier = 12345
-            //};
-            var productName = fakeFileShareDocuments.FirstOrDefault()?.ProductName;
+            var productName = fakeDocuments.FirstOrDefault()?.Product.Name;
 
             var expectedProduct = new Models.Shared.Product
             {
@@ -113,8 +102,6 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Coordinators
                 ListItems = fakeFileShareDocuments,
                 FilterCategories = fakeFilterCategories,
                 AnyDocumentsAvailable = numberOfDocuments > 0,
-
-                //SelectedProduct = numberOfDocuments == 0 ? null : fakeProduct,
                 SelectedProduct = numberOfDocuments == 0 ? null : expectedProduct,
                 SelectedTeam = fakeDocuments.FirstOrDefault()?.Team
             };
@@ -149,30 +136,6 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Coordinators
                 .Setup(lh => lh.AnyDocumentsAvailable(request, fakeListResult))
                 .Returns(numberOfDocuments > 0);
 
-            //Mock.Get(_mapper)
-            //    .Setup(mapper => mapper.Map<Models.Shared.Product>(It.IsAny<Product>()))
-            //    .Returns(
-            //        (Product product) =>
-            //        {
-            //            if (product == null)
-            //            {
-            //                return null;
-            //            }
-
-            //            return fakeProduct;
-            //        });
-            //Mock.Get(_mapper)
-            //    .Setup(mapper => mapper.ToWebProduct(It.IsAny<Services.Models.Product>()))
-            //    .Returns(
-            //        (Models.Shared.Product product) =>
-            //        {
-            //            if (product == null)
-            //            {
-            //                return null;
-            //            }
-
-            //            return fakeProduct;
-            //        });
             var coordinator = GetTestCoordinator();
 
             // Act
@@ -241,12 +204,6 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Coordinators
                 })
                 .ToList();
 
-            //var product = new Models.Shared.Product
-            //{
-            //    Name = "test product name",
-            //    PluralName = "test product names",
-            //    Identifier = 12345
-            //};
             var expectedProduct = new Models.Shared.Product
             {
                 Name = fakeDocuments.FirstOrDefault()?.Product.Name,
@@ -266,8 +223,6 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Coordinators
                 ListItems = fakeFileShareDocuments,
                 FilterCategories = fakeFilterCategories,
                 AnyDocumentsAvailable = numberOfDocuments > 0,
-
-                //SelectedProduct = numberOfDocuments == 0 ? null : product,
                 SelectedProduct = numberOfDocuments == 0 ? null : expectedProduct,
                 SelectedTeam = fakeDocuments.FirstOrDefault()?.Team
             };
@@ -281,8 +236,6 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Coordinators
                         new PageUpdateItem(
                             "#selected-product-name",
                             numberOfDocuments == 1 ? expectedProduct.Name : expectedProduct.PluralName)
-
-                        //numberOfDocuments == 1 ? product.Name : product.PluralName)
                     }
                 }
                 : new DocumentListUpdateData();
@@ -325,18 +278,6 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Coordinators
                     return new DocumentListUpdateData();
                 });
 
-            //Mock.Get(_mapper)
-            //    .Setup(mapper => mapper.Map<Models.Shared.Product>(It.IsAny<Product>()))
-            //    .Returns(
-            //        (Product product) =>
-            //        {
-            //            if (product == null)
-            //            {
-            //                return null;
-            //            }
-
-            //            return product;
-            //        });
             var coordinator = GetTestCoordinator();
 
             // Act
@@ -708,12 +649,6 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Coordinators
 
         private AgencyFileShareListRequestCoordinator GetTestCoordinator()
         {
-            //return new AgencyFileShareListRequestCoordinator(
-            //    _userInfoProvider,
-            //    _agencyApiClient,
-            //    _listHelper,
-            //    Options.Create(Configuration),
-            //    _mapper);
             return new AgencyFileShareListRequestCoordinator(
                 _userInfoProvider,
                 _agencyApiClient,

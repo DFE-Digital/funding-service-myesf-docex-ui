@@ -1,5 +1,4 @@
-﻿//using AutoMapper;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentAssertions.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -1077,10 +1076,9 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
 
             Mock.VerifyAll(
                 Mock.Get(UserInformationProvider),
+                Mock.Get(Mapper),
                 mockExchangeClient,
                 listHelper);
-
-            //Mock.Get(Mapper),
         }
 
         [TestMethod, TestCategory("Unit")]
@@ -1176,10 +1174,9 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
 
             Mock.VerifyAll(
                 Mock.Get(UserInformationProvider),
+                Mock.Get(Mapper),
                 mockExchangeClient,
                 listHelper);
-
-            //Mock.Get(Mapper),
         }
 
         #endregion
@@ -1273,10 +1270,9 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
 
             Mock.VerifyAll(
                 Mock.Get(UserInformationProvider),
+                Mock.Get(Mapper),
                 mockExchangeClient,
                 listHelper);
-
-            //Mock.Get(Mapper),
         }
 
         [TestMethod, TestCategory("Unit")]
@@ -1364,10 +1360,9 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
 
             Mock.VerifyAll(
                 Mock.Get(UserInformationProvider),
+                Mock.Get(Mapper),
                 mockExchangeClient,
                 listHelper);
-
-            //Mock.Get(Mapper),
         }
 
         #endregion
@@ -1800,8 +1795,8 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
 
             var testServiceFilters = GetTestServiceFilters(numberOfFilters).ToList();
             var testViewModelFilters = GetTestViewModelFilterCategories(numberOfFilters).ToList();
+            SetupFilterMapper(testServiceFilters, testViewModelFilters);
 
-            //SetupFilterMapper(testServiceFilters, testViewModelFilters);
             var expectedNumberOfItems = numberOfPages * TestConfiguration.ListPageSize;
 
             var listResult = new ListResult<ExchangeDocument>
@@ -1908,8 +1903,8 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
 
             var testServiceFilters = GetTestServiceFilters(numberOfFilters).ToList();
             var testViewModelFilters = GetTestViewModelFilterCategories(numberOfFilters).ToList();
+            SetupFilterMapper(testServiceFilters, testViewModelFilters);
 
-            //SetupFilterMapper(testServiceFilters, testViewModelFilters);
             var expectedNumberOfItems = numberOfPages * TestConfiguration.ListPageSize;
 
             var listResult = new ListResult<ExchangeDocument>
@@ -2019,8 +2014,8 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
 
             var testServiceFilters = GetTestServiceFilters(numberOfFilters).ToList();
             var testViewModelFilters = GetTestViewModelFilterCategories(numberOfFilters).ToList();
+            SetupFilterMapper(testServiceFilters, testViewModelFilters);
 
-            // SetupFilterMapper(testServiceFilters, testViewModelFilters);
             var expectedNumberOfItems = numberOfPages * TestConfiguration.ListPageSize;
 
             var listResult = new ListResult<ExchangeDocument>

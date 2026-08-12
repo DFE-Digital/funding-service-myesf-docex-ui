@@ -1,5 +1,4 @@
-﻿//using AutoMapper;
-using Moq;
+﻿using Moq;
 using Pds.Core.Utils;
 using Pds.Core.Utils.Interfaces;
 using Pds.Core.Web.Components.Areas.Lists.Builders;
@@ -46,9 +45,6 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
             {
                 var iLocal = i;
 
-                //mockMapper
-                //   .Setup(m => m.Map<IFilterCategoryViewModel>(serviceFilters[iLocal]))
-                //   .Returns(viewModelFilters[iLocal]);
                 mockMapper
                    .Setup(m => m.ToFilterCategoryView(serviceFilters[iLocal]))
                    .Returns(viewModelFilters[iLocal]);
