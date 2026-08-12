@@ -22,6 +22,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
+    <PackageReference Include="NuGet.ProjectModel" Version="7.9.0" />
     <PackageReference Include="Pds.Core.CodeAnalysis.StyleCop" Version="2.0.0" />
     <PackageReference Include="Pds.Core.Logging" Version="3.0.0" />
     <PackageReference Include="Pds.Core.SecurityAssurance" Version="2.1.0" />
