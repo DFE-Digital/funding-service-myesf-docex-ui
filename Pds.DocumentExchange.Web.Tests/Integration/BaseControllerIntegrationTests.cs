@@ -1,13 +1,13 @@
-﻿using AutoMapper;
-using Moq;
+﻿using Moq;
 using Pds.Core.Common.Identity.Models;
 using Pds.Core.Identity.Claims.Interfaces;
 using Pds.Core.Logging;
 using Pds.Core.Utils;
 using Pds.Core.Utils.Interfaces;
 using Pds.DocumentExchange.Services.Interfaces;
-using Pds.DocumentExchange.Web.Automapper;
+using Pds.DocumentExchange.Web.Implementations.Helpers;
 using Pds.DocumentExchange.Web.Implementations.Providers;
+using Pds.DocumentExchange.Web.Interfaces.Helpers;
 using System.Security.Claims;
 
 namespace Pds.DocumentExchange.Web.Tests.Integration
@@ -15,14 +15,7 @@ namespace Pds.DocumentExchange.Web.Tests.Integration
     public abstract class BaseControllerIntegrationTests : BaseControllerTests
     {
         private readonly IMapper _mapper
-            = new Mapper(
-                new MapperConfiguration(
-                    mapper => mapper.AddProfiles(
-                        new Profile[]
-                        {
-                            new UserMapping(),
-                            new ListMapping()
-                        })));
+            = new Mapper();
 
         protected IMapper Mapper
             => _mapper;

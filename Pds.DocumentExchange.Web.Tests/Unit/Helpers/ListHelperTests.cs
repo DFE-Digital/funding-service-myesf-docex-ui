@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -14,6 +13,7 @@ using Pds.DocumentExchange.Services.Models.Filters;
 using Pds.DocumentExchange.Web.DTOs;
 using Pds.DocumentExchange.Web.Enums;
 using Pds.DocumentExchange.Web.Implementations.Helpers;
+using Pds.DocumentExchange.Web.Interfaces.Helpers;
 using Pds.DocumentExchange.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -153,7 +153,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Helpers
             };
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<IFilterCategoryViewModel>(It.IsAny<IFilter>()))
+                .Setup(m => m.ToFilterCategoryView(It.IsAny<IFilter>()))
                 .Returns((IFilter filter) =>
                 {
                     var index = fakeFilters.IndexOf(filter);

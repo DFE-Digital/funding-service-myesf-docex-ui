@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Pds.Core.Web.Components.Areas.Lists.DTOs;
 using Pds.Core.Web.Components.Areas.Lists.Models;
 using Pds.DocumentExchange.Services.Enums;
@@ -62,7 +61,7 @@ namespace Pds.DocumentExchange.Web.Implementations.Coordinators
                 (listResult, listPage) =>
                 {
                     var firstDocument = listResult?.Items?.FirstOrDefault();
-                    listPage.SelectedProduct = _mapper.Map<Models.Shared.Product>(firstDocument?.Product);
+                    listPage.SelectedProduct = _mapper.ToWebProduct(firstDocument?.Product);
                     listPage.SelectedTeam = firstDocument?.Team;
                 });
 

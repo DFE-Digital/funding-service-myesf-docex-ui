@@ -922,7 +922,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Controllers
             };
 
             Mock.Get(Mapper)
-                .Setup(mapper => mapper.Map<Models.Shared.Product>(product))
+                .Setup(mapper => mapper.ToWebProduct(product))
                 .Returns(mappedProduct);
 
             var controller = GetAgencyController();

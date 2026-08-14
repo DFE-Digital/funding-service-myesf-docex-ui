@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Pds.Core.Common.Identity.Enums;
@@ -11,6 +10,7 @@ using Pds.Core.Web.Models;
 using Pds.DocumentExchange.Services.Interfaces;
 using Pds.DocumentExchange.Services.Models;
 using Pds.DocumentExchange.Web.Implementations.Providers;
+using Pds.DocumentExchange.Web.Interfaces.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +39,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testUserInfo = new UserInfo();
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             var testProvider = await GetTestProvider(testUser);
@@ -63,7 +63,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testUserViewModel = new CurrentUserViewModel();
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<CurrentUserViewModel>(testUser))
+                .Setup(m => m.ToCurrentUserViewModel(testUser))
                 .Returns(testUserViewModel);
 
             var testProvider = await GetTestProvider(testUser);
@@ -154,7 +154,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testOrganisation = GetTestChildOrganisation();
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)
@@ -204,7 +204,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testOrganisation = GetTestParentOrganisation(1);
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)
@@ -316,7 +316,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testUser = new User();
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(userInfoWithoutOrgId);
 
             var testProvider = await GetTestProvider(testUser);
@@ -359,7 +359,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             };
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             var testProvider = await GetTestProvider(testUser);
@@ -382,7 +382,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testUser = new User();
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(userInfoWithoutOrgId);
 
             var testProvider = await GetTestProvider(testUser);
@@ -421,7 +421,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             };
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)
@@ -469,7 +469,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testOrganisation = GetTestParentOrganisation(numberOfChildOrganisations);
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)
@@ -517,7 +517,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testOrganisation = GetTestParentOrganisation(numberOfChildOrganisations);
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)
@@ -563,7 +563,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             };
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)
@@ -611,7 +611,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Providers
             var testOrganisation = GetTestParentOrganisation(numberOfChildOrganisations);
 
             Mock.Get(_mapper)
-                .Setup(m => m.Map<UserInfo>(testUser))
+                .Setup(m => m.ToUserInfo(testUser))
                 .Returns(testUserInfo);
 
             Mock.Get(_organisationApiClient)

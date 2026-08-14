@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Pds.Core.Utils;
 using Pds.Core.Web.Components.Areas.Lists.Builders;
 using Pds.Core.Web.Components.Areas.Lists.DTOs;
@@ -143,7 +142,7 @@ namespace Pds.DocumentExchange.Web.Implementations.Helpers
         public IEnumerable<IFilterCategoryViewModel> GetFilterCategories<T>(ListResult<T> listResult)
         {
             return listResult.Filters.Select(
-               filter => _mapper.Map<IFilterCategoryViewModel>(filter));
+               filter => _mapper.ToFilterCategoryView(filter));
         }
     }
 }
