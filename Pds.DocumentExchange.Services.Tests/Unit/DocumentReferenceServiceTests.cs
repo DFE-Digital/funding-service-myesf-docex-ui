@@ -24,7 +24,7 @@ namespace Pds.DocumentExchange.Services.Tests.Unit
 
             // Assert
             func.Should().Throw<ArgumentNullException>();
-            func.Should().Throw<ArgumentNullException>().Which.Message.Contains("The document reference cannot be empty.");
+            func.Should().Throw<ArgumentNullException>().Which.Message.Equals("The document reference cannot be empty.");
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace Pds.DocumentExchange.Services.Tests.Unit
 
             // Assert
             func.Should().Throw<FormatException>();
-            func.Should().Throw<FormatException>().Which.Message.Contains("The document reference format should be: {file-name}|{batch-id}|{parent-batch-id}. But the document reference format was: " + result);
+            func.Should().Throw<FormatException>().Which.Message.Equals("The document reference format should be: {file-name}|{batch-id}|{parent-batch-id}. But the document reference format was: " + result);
         }
 
         [TestMethod]
@@ -73,7 +73,7 @@ namespace Pds.DocumentExchange.Services.Tests.Unit
 
             // Assert
             act.Should().Throw<ArgumentNullException>();
-            act.Should().Throw<ArgumentNullException>().Which.Message.Contains("The document reference relationships collection cannot be null.");
+            act.Should().Throw<ArgumentNullException>().Which.Message.Equals("The document reference relationships collection cannot be null.");
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace Pds.DocumentExchange.Services.Tests.Unit
 
             // Assert
             act.Should().Throw<ArgumentNullException>();
-            act.Should().Throw<ArgumentNullException>().Which.Message.Contains("The document reference relationship collection cannot contain null entries.");
+            act.Should().Throw<ArgumentNullException>().Which.Message.Equals("The document reference relationship collection cannot contain null entries.");
         }
 
         [TestMethod]
@@ -102,7 +102,7 @@ namespace Pds.DocumentExchange.Services.Tests.Unit
 
             // Assert
             act.Should().Throw<FormatException>();
-            act.Should().Throw<FormatException>().Which.Message.Contains("The document reference format should be: {file-name}|{batch-id}|{parent-batch-id}. But the document reference format was: " + result);
+            act.Should().Throw<FormatException>().Which.Message.Equals("The document reference format should be: {file-name}|{batch-id}|{parent-batch-id}. But the document reference format was: " + result);
         }
 
         [TestMethod, DynamicData(nameof(CreateDocumentReferencesWithPreviousVersionsFromStrings_TestData))]
