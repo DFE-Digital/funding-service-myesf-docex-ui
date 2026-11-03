@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904;S1135</WarningsNotAsErrors>
     <UserSecretsId>718c842b-35cb-4ff6-904e-f740c406ab37</UserSecretsId>
@@ -20,15 +20,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
     <PackageReference Include="Pds.Core.CodeAnalysis.StyleCop" Version="2.0.0" />
-    <PackageReference Include="Pds.Core.Logging" Version="3.0.0" />
-    <PackageReference Include="Pds.Core.SecurityAssurance" Version="2.1.0" />
+    <PackageReference Include="Pds.Core.Logging" Version="3.0.1" />
+    <PackageReference Include="Pds.Core.SecurityAssurance" Version="3.0.0" />
     <PackageReference Include="Pds.Core.Telemetry.ApplicationInsights" Version="3.0.0" />
-    <PackageReference Include="Pds.Core.Utils" Version="3.0.0" />
-    <PackageReference Include="Pds.Core.Web" Version="5.0.14" />
-    <PackageReference Include="Pds.Core.Web.Administration" Version="2.0.7" />
-    <PackageReference Include="Pds.Core.Web.Components" Version="5.0.0" />
+    <PackageReference Include="Pds.Core.Utils" Version="3.0.1" />
+    <PackageReference Include="Pds.Core.Web" Version="6.0.0" />
+    <PackageReference Include="Pds.Core.Web.Administration" Version="3.0.0" />
+    <PackageReference Include="Pds.Core.Web.Components" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
