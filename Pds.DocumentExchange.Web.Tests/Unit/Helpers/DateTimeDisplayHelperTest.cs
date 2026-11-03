@@ -11,7 +11,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Helpers
     [TestClass, TestCategory("Unit")]
     public class DateTimeDisplayHelperTest
     {
-        [DataTestMethod, TestCategory("Unit")]
+        [TestMethod, TestCategory("Unit")]
         [DynamicData(nameof(ToTimeAndDateDisplayString_ForPastDate_TestData))]
         public void ToTimeAndDateDisplayString_ForPastDate_FormatsDateAndTimeAsExpected(
             DateTime inputDateTime, string expectedTimeAndDateString)
@@ -38,7 +38,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Helpers
             mockDateTimeProvider.VerifyAll();
         }
 
-        [DataTestMethod, TestCategory("Unit")]
+        [TestMethod, TestCategory("Unit")]
         [DynamicData(nameof(ToTimeAndDateDisplayString_ForToday_TestData))]
         public void ToTimeAndDateDisplayString_ForToday_FormatsDateAndTimeAsExpected(
             DateTime inputDateTime, string expectedTimeAndDateString)
@@ -65,7 +65,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Helpers
             mockDateTimeProvider.VerifyAll();
         }
 
-        [DataTestMethod, TestCategory("Unit")]
+        [TestMethod, TestCategory("Unit")]
         [DynamicData(nameof(ToSentenceTimeAndDateDisplayString_ForPastDate_TestData))]
         public void ToSentenceTimeAndDateDisplayString_ForPastDate_FormatsDateAndTimeAsExpected(
             DateTime inputDateTime, string expectedTimeAndDateString)
@@ -92,7 +92,7 @@ namespace Pds.DocumentExchange.Web.Tests.Unit.Helpers
             mockDateTimeProvider.VerifyAll();
         }
 
-        [DataTestMethod, TestCategory("Unit")]
+        [TestMethod, TestCategory("Unit")]
         [DynamicData(nameof(ToSentenceTimeAndDateDisplayString_ForToday_TestData))]
         public void ToSentenceTimeAndDateDisplayString_ForToday_FormatsDateAndTimeAsExpected(
             DateTime inputDateTime, string expectedTimeAndDateString)
